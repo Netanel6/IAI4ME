@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.netanel.iaiforme">
+
+    <!-- upload picture -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:icon="@mipmap/ic_launcher_main"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <service android:name=".firebase_cloud_messaging.MyFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".worker.fragments.actions.send_request.SendRequestActivity"
+            android:label="@string/title_activity_send_request"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup_signin.SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".signup_signin.SigninActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name=".signup_signin.SignupActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name=".signup_signin.ForgotPasswordActivity" />
+        <activity
+            android:name=".signup_signin.CheckInfoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".manager.activities.ManagerMainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".worker.activities.WorkerMainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".manager.fragments.actions.SendFcmActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".manager.fragments.actions.SendFcmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".manager.fragments.actions.ac_managment.AcManagmentActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".manager.fragments.actions.ac_managment.AcManagmentActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

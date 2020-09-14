@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#398ED0</color>
+    <color name="colorPrimaryDark">#398ED0</color>
+    <color name="colorAccent">#398ED0</color>
+    <color name="redSignIn">#FF261F</color>
+    <color name="greenSignIn">#12B800</color>
+    <color name="defaultSignIn">#FFFF</color>
+
+
+
+</resources>

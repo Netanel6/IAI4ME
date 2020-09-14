@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".shared.ProfileFragment">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/profile_photo_image"
+        android:gravity="top|right"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/contact_person" />
+
+
+        <TextView
+            android:id="@+id/tv_name_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/colorAccent"
+            android:text="שם ושם משפחה"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.33"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/actions_btn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/baseline_add"
+                    android:gravity="center"
+                    android:text="פעולות"
+                    android:textSize="18sp" />
+
+
+                <Button
+                    android:id="@+id/enter_exit_btn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_schedule"
+                    android:gravity="center"
+                    android:text="נוכחות"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/settings_btn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_settings"
+                    android:gravity="center"
+                    android:text="הגדרות"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.7"
+                android:background="@android:color/holo_blue_bright">
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            layout="@layout/bottom_sheet_layout"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

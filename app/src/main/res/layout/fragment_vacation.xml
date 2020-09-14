@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/send_request_background"
+    android:gravity="center|bottom"
+    android:orientation="vertical"
+    tools:context=".worker.fragments.actions.send_request.VacationFragment">
+
+    <TextView
+        android:id="@+id/tv_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:inputType="date"
+        android:shadowColor="@android:color/white"
+        android:text="בחר תאריך יציאה מהעבודה"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        android:inputType="date"
+        android:shadowColor="@android:color/white"
+        android:text="בחר תאריך חזרה לעבודה"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/send_vacation_btn"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שלח חופש"
+        android:gravity="center"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/title_select_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="25dp"
+        android:text="בחר טווח תאריכים בכדי לעדכן את הממונה על ימי חופש"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

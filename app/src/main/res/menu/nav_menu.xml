@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="תפריט ראשי"
+        >
+        <menu>
+            <item
+                android:id="@+id/nav_home_worker"
+                android:title="בית"
+            />
+            <item
+                android:id="@+id/nav_day_schedule"
+                android:title="סדר יום"
+                />
+            <item
+                android:id="@+id/nav_profile"
+                android:title="פרופיל"
+
+                />
+        </menu>
+    </item>
+
+            <item android:id="@+id/nav_logout"
+                android:title="התנתק"
+                 />
+
+</menu>

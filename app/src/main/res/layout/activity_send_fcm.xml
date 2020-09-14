@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".manager.fragments.actions.SendFcmActivity">
+
+
+    <EditText
+        android:id="@+id/et_fcm_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:hint="כותרת" />
+
+    <EditText
+        android:id="@+id/et_fcm_description"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:hint="תיאור ההודעה" />
+
+    <Button
+        android:id="@+id/send_fcm_to_all_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שלח"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"/>
+</LinearLayout>
