@@ -16,6 +16,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.firebase_cloud_messaging.Constants;
+//import com.netanel.iaiforme.firebase_cloud_messaging.MyNotificationManager;
 import com.netanel.iaiforme.firebase_cloud_messaging.MyNotificationManager;
 import com.netanel.iaiforme.manager.activities.ManagerMainActivity;
 import com.netanel.iaiforme.pojo.Noti;
@@ -27,7 +28,6 @@ public class SendFcmActivity extends AppCompatActivity {
     EditText etFcmTitle, etFcmDescription;
     private CollectionReference fcmSendMessageRef = FirebaseFirestore.getInstance().collection("Fcm");
     Button sendFcmToAllBtn;
-    private Map<String, Object> fcmText = new HashMap<>();
     private Noti noti = new Noti();
     NotificationManager notificationManager;
 
@@ -61,12 +61,10 @@ public class SendFcmActivity extends AppCompatActivity {
 
                 noti.setTitle(fcmTitleText);
                 noti.setDescription(fcmDescriptionText);
-//                fcmText.put("title", fcmTitleText);
-//                fcmText.put("description", fcmDescriptionText);
                 fcmSendMessageRef.add(noti);
                 Toast.makeText(SendFcmActivity.this, "הודעה נשלחה בהצלחה!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SendFcmActivity.this, ManagerMainActivity.class);
-                MyNotificationManager.getInstance(getApplicationContext()).displayNotification(fcmTitleText , fcmDescriptionText);
+                 MyNotificationManager.getInstance(getApplicationContext()).displayNotification(fcmTitleText , fcmDescriptionText);
                 startActivity(intent);
                 finish();
             }

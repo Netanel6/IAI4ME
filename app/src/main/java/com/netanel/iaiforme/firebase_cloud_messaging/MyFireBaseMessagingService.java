@@ -7,8 +7,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFireBaseMessagingService extends FirebaseMessagingService {
-    public MyFireBaseMessagingService() {
-    }
+
 
     @Override
     public void onCreate() {
