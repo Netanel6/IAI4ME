@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
     private CollectionReference selectedAcWithWorkers = db.collection("AircraftList");
     private CollectionReference managerNotiRef = db.collection("Fcm");
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

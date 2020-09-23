@@ -1,5 +1,6 @@
 package com.netanel.iaiforme.manager.fragments.lists.aircrafts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,8 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -26,8 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.netanel.iaiforme.R;
-import com.netanel.iaiforme.shared.home.HomeFragment;
-import com.netanel.iaiforme.manager.fragments.lists.users.users_ac.SelectedToAcFragment;
+import com.netanel.iaiforme.manager.activities.ManagerMainActivity;
+import com.netanel.iaiforme.manager.fragments.lists.users.users_after_checked.SelectedToAcFragment;
 import com.netanel.iaiforme.pojo.Aircraft;
 
 import java.text.DateFormat;
@@ -146,12 +145,17 @@ public class AircraftsListsFragment extends Fragment {
                                         snackbar.setTextColor(getResources().getColor(R.color.greenSignIn));
                                         snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
                                         snackbar.show();
-
+/*
                                         Fragment fragment = new HomeFragment();
                                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         fragmentTransaction.replace(R.id.fragment_container, fragment);
                                         fragmentTransaction.commit();
+                                        */
+
+                                        Intent intent = new Intent(getActivity() , ManagerMainActivity.class);
+                                        startActivity(intent);
+
                                     }
                                 }
                             }

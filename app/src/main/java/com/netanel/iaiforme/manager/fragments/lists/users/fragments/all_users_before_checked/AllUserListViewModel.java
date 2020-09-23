@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.manager.fragments.lists.users.users_bc;
+package com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,8 +8,8 @@ import com.netanel.iaiforme.pojo.User;
 
 import java.util.List;
 
-public class UserListViewModel extends ViewModel implements FireStoreUsersRepository.OnFireStoreTaskComplete {
-    private FireStoreUsersRepository fireStoreRepository = new FireStoreUsersRepository(this);
+public class AllUserListViewModel extends ViewModel implements FireStoreAllUsersRepository.OnFireStoreTaskComplete {
+    private FireStoreAllUsersRepository fireStoreRepository = new FireStoreAllUsersRepository(this);
 
     private MutableLiveData<List<User>> userListViewModel = new MutableLiveData<>();
 
@@ -18,7 +18,7 @@ public class UserListViewModel extends ViewModel implements FireStoreUsersReposi
         return userListViewModel;
     }
 
-    public UserListViewModel() {
+    public AllUserListViewModel() {
         fireStoreRepository.getUsersData();
     }
 

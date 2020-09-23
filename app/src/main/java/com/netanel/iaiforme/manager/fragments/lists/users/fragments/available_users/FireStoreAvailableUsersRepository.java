@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.manager.fragments.lists.users.users_bc;
+package com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users;
 
 import androidx.annotation.NonNull;
 
@@ -11,14 +11,14 @@ import com.netanel.iaiforme.pojo.User;
 
 import java.util.List;
 
-public class FireStoreUsersRepository {
+public class FireStoreAvailableUsersRepository {
 
     private OnFireStoreTaskComplete onFireStoreTaskComplete;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference userRef = db.collection("Users");
 
-    public FireStoreUsersRepository(OnFireStoreTaskComplete onFireStoreTaskComplete){
+    public FireStoreAvailableUsersRepository(OnFireStoreTaskComplete onFireStoreTaskComplete){
         this.onFireStoreTaskComplete = onFireStoreTaskComplete;
     }
 

@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.manager.fragments.lists.users.users_bc;
+package com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,21 +21,21 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.netanel.iaiforme.R;
-import com.netanel.iaiforme.manager.fragments.lists.users.users_ac.SelectedToAcFragment;
+import com.netanel.iaiforme.manager.fragments.lists.users.users_after_checked.SelectedToAcFragment;
 import com.netanel.iaiforme.pojo.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkerListsFragment extends Fragment {
+public class AllWorkerListsFragment extends Fragment {
 
-    private UserListsAdapter adapter = new UserListsAdapter();
+    private AllUserListsAdapter adapter = new AllUserListsAdapter();
     FirebaseDatabase realTimeDb = FirebaseDatabase.getInstance();
     DatabaseReference selectedToAcRef;
     static List<User> selectedToAcList;
 
 
-    public WorkerListsFragment() {
+    public AllWorkerListsFragment() {
     }
 
     @Override
@@ -56,7 +56,6 @@ public class WorkerListsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setUpRecyclerView(view);
         addOrRemoveWorker();
         moveToSelectedWorkers(view);
@@ -78,7 +77,7 @@ public class WorkerListsFragment extends Fragment {
     }
 
     public void addOrRemoveWorker() {
-        adapter.setUserAddedToAc(new UserListsAdapter.OnCheckItem() {
+        adapter.setUserAddedToAc(new AllUserListsAdapter.OnCheckItem() {
             @Override
             public void addNewUser(User user) {
                 selectedToAcList.add(user);
@@ -118,6 +117,8 @@ public class WorkerListsFragment extends Fragment {
             }
         });
     }
+
+
 }
 
 

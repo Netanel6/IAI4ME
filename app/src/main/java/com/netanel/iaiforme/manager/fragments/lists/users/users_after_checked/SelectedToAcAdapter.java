@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.manager.fragments.lists.users.users_ac;
+package com.netanel.iaiforme.manager.fragments.lists.users.users_after_checked;
 
 import android.view.LayoutInflater;
 import android.view.View;

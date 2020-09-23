@@ -34,7 +34,6 @@ import java.util.List;
 
 public class UpdateDeleteAcFragment extends Fragment {
 
-    // TODO: 05/09/2020 Work on update airplane method
     private AircraftsListsAdapter adapter = new AircraftsListsAdapter();
     private CollectionReference aircraftDeleteRef = FirebaseFirestore.getInstance().collection("AircraftList");
 

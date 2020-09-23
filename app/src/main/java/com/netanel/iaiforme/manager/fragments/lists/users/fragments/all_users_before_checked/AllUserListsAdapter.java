@@ -1,6 +1,5 @@
-package com.netanel.iaiforme.manager.fragments.lists.users.users_bc;
+package com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +21,18 @@ import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
-public class UserListsAdapter extends RecyclerView.Adapter<UserListsAdapter.UserViewHolder> implements Filterable {
+public class AllUserListsAdapter extends RecyclerView.Adapter<AllUserListsAdapter.UserViewHolder> implements Filterable {
 
     private static List<User> userList = new ArrayList<>();
     private static List<User> userNewList = new ArrayList<>();
     private static OnCheckItem checkItem;
     private static int REGULAR_WORKER_CELL = 0;
-    public UserListsAdapter() {
+    public AllUserListsAdapter() {
     }
 
     //Search View User Array List Fragment
-    public UserListsAdapter(List<User> userList2) {
-        UserListsAdapter.userList = userList2;
+    public AllUserListsAdapter(List<User> userList2) {
+        AllUserListsAdapter.userList = userList2;
         userNewList = new ArrayList<>(userList2);
     }
 
@@ -160,6 +159,6 @@ public class UserListsAdapter extends RecyclerView.Adapter<UserListsAdapter.User
     }
 
     public void setUserAddedToAc(OnCheckItem checkItem) {
-        UserListsAdapter.checkItem = checkItem;
+        AllUserListsAdapter.checkItem = checkItem;
     }
 }

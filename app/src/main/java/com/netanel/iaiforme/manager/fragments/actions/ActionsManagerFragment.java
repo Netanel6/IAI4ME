@@ -24,7 +24,7 @@ import com.netanel.iaiforme.manager.fragments.actions.ac_managment.AcManagmentAc
 import com.netanel.iaiforme.pojo.User;
 import com.netanel.iaiforme.worker.fragments.actions.send_request.SendRequestActivity;
 
-public class ActionsManagerFragment extends Fragment {
+public class ActionsManagerFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userid = user.getUid();
@@ -57,38 +57,37 @@ public class ActionsManagerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectActivity(view);
+        setupViews(view);
         getUserName(view);
 
 
 
     }
-
-    // TODO: 24/08/2020 Convert to switch case
-    //Select activities
-    public void selectActivity(View view){
+    public void setupViews(View view){
         acManagmentBtn = view.findViewById(R.id.manage_ac_btn);
-        acManagmentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToClass(AcManagmentActivity.class);
-            }
-        });
         sendFcmBtn = view.findViewById(R.id.send_fcm_btn);
-        sendFcmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               goToClass(SendFcmActivity.class);
-            }
-        });
         sendRequestBtn = view.findViewById(R.id.send_request_btn);
-        sendRequestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToClass(SendRequestActivity.class);
-            }
-        });
+        acManagmentBtn.setOnClickListener(this);
+        sendFcmBtn.setOnClickListener(this);
+        sendRequestBtn.setOnClickListener(this);
+
     }
+    //Implementation of OnClickListener
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.manage_ac_btn:
+                goToClass(AcManagmentActivity.class);
+                break;
+            case R.id.send_fcm_btn:
+                goToClass(SendFcmActivity.class);
+                break;
+            case R.id.send_request_btn:
+                goToClass(SendRequestActivity.class);
+                break;
+        }
+    }
+
 
     //Retrieve current logged in users' name
     public void getUserName(View view){
@@ -107,4 +106,5 @@ public class ActionsManagerFragment extends Fragment {
         startActivity(intent);
 
     }
+
 }
