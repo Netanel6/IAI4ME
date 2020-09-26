@@ -6,12 +6,12 @@ public class Noti {
 
     private String title;
     private String description;
-    private Date date;
+    private String date;
 
     public Noti(){
     }
 
-    public Noti(String title, String description, Date date) {
+    public Noti(String title, String description, String date) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -33,11 +33,11 @@ public class Noti {
         this.description = description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

@@ -1,7 +1,8 @@
-package com.netanel.iaiforme.shared.home;
+package com.netanel.iaiforme.shared.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.Noti;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.ManagerNotiViewHolder> {
@@ -35,7 +39,12 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
     @Override
     public void onBindViewHolder(@NonNull ManagerNotiViewHolder holder, int position) {
         Noti noti = notiArrayList.get(position);
+
+
+
+        holder.tvNotiDate.setText(noti.getDate());
         holder.tvNotiTitle.setText(noti.getTitle());
+        holder.tvNotiTitle.setTextColor(Color.BLUE);
         holder.tvNotiDescription.setText(noti.getDescription());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +57,6 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
                             public void onClick(DialogInterface dialog, int which) {
                             }
                         }).show();
-
             }
         });
     }
@@ -59,10 +67,11 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
     }
 
     public static class ManagerNotiViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNotiTitle, tvNotiDescription;
+        TextView tvNotiDate, tvNotiTitle, tvNotiDescription;
 
         public ManagerNotiViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvNotiDate = itemView.findViewById(R.id.tv_noti_date);
             tvNotiTitle = itemView.findViewById(R.id.tv_noti_title);
             tvNotiDescription = itemView.findViewById(R.id.tv_noti_description);
         }

@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.Aircraft;
 import com.netanel.iaiforme.pojo.Noti;
+import com.netanel.iaiforme.shared.profile.ManagerNotiAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,12 +31,10 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     TextView tvTitleDate;
     private AircraftWithWorkersAdapter aircraftWithWorkersAdapter = new AircraftWithWorkersAdapter();
-    private ManagerNotiAdapter managerNotiAdapter = new ManagerNotiAdapter();
+
     RecyclerView rvDaySchedule;
-    RecyclerView rvManagerNoti;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference selectedAcWithWorkers = db.collection("AircraftList");
-    private CollectionReference managerNotiRef = db.collection("Fcm");
 
 
 
@@ -51,7 +50,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setUpDate(view);
         setUpDayScheduleRecyclerView(view);
-        setUpManagerNotiRecyclerView(view);
 
     }
 
@@ -65,24 +63,7 @@ public class HomeFragment extends Fragment {
         tvTitleDate.setText(date + " " + time);
     }
 
-    //Notifications recycler view
-    public void setUpManagerNotiRecyclerView(View view) {
-        rvManagerNoti = view.findViewById(R.id.rv_notifications);
-        managerNotiRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Noti> noti = queryDocumentSnapshots.toObjects(Noti.class);
-                rvManagerNoti.setLayoutManager(new LinearLayoutManager(getActivity(),
-                        RecyclerView.HORIZONTAL, false));
-                managerNotiAdapter.setNotiArrayList(noti);
-                rvManagerNoti.setAdapter(managerNotiAdapter);
-                DividerItemDecoration itemDecoration2 = new DividerItemDecoration(rvManagerNoti.getContext(),
-                        DividerItemDecoration.HORIZONTAL);
-                rvManagerNoti.addItemDecoration(itemDecoration2);
-                managerNotiAdapter.notifyDataSetChanged();
-            }
-        });
-    }
+
 
     //Day schedule recycler view
     public void setUpDayScheduleRecyclerView(View view) {

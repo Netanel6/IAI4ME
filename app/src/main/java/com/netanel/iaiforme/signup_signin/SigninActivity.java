@@ -23,6 +23,7 @@ import com.netanel.iaiforme.R;
 public class SigninActivity extends AppCompatActivity {
     TextView toSignUp , forgotPassword;
     Button signIN;
+    String emailFromSignUp;
 
      FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     static String email, password;
@@ -57,7 +58,14 @@ public class SigninActivity extends AppCompatActivity {
 
     //SignIN
     public void signIN(){
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null){
+            emailFromSignUp = extras.getString("mail");
+        }
+
         emailEt = findViewById(R.id.email_signin_et);
+        emailEt.setText(emailFromSignUp);
         passwordEt = findViewById(R.id.password_signin_et);
         signIN = findViewById(R.id.signin_btn);
         signIN.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +102,8 @@ public class SigninActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
-
     }
 
     //SignUP
@@ -109,7 +115,6 @@ public class SigninActivity extends AppCompatActivity {
                 Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
     }

@@ -21,6 +21,9 @@ import com.netanel.iaiforme.firebase_cloud_messaging.MyNotificationManager;
 import com.netanel.iaiforme.manager.activities.ManagerMainActivity;
 import com.netanel.iaiforme.pojo.Noti;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,9 +59,16 @@ public class SendFcmActivity extends AppCompatActivity {
         sendFcmToAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateFormat dateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+                String date = dateFormat.format(new Date());
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                String time = timeFormat.format(new Date());
+                String timeDate = date + " " + time;
+
+
                 String fcmTitleText = etFcmTitle.getText().toString();
                 String fcmDescriptionText = etFcmDescription.getText().toString();
-
+                noti.setDate(timeDate);
                 noti.setTitle(fcmTitleText);
                 noti.setDescription(fcmDescriptionText);
                 fcmSendMessageRef.add(noti);

@@ -19,7 +19,7 @@ import com.netanel.iaiforme.manager.fragments.lists.users.WorkerListsActivity;
 import com.netanel.iaiforme.signup_signin.SigninActivity;
 import com.netanel.iaiforme.shared.home.HomeFragment;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllUserListsAdapter;
-import com.netanel.iaiforme.shared.ProfileFragment;
+import com.netanel.iaiforme.shared.profile.ProfileFragment;
 
 public class ManagerMainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

@@ -22,10 +22,9 @@ public class User {
     public User(String profilePicUrl){
         this.profilePicUrl = profilePicUrl;
     }
-    public User(String uid, String email, String password, String name,
-                String last, String phone, String personalNumber,
-                String status,String profilePicUrl, ArrayList<String> tokens) {
 
+
+    public User(String uid, String email, String password, String name, String last, String phone, String personalNumber, String status, String pic) {
         this.uid = uid;
         this.email = email;
         this.password = password;
@@ -34,10 +33,6 @@ public class User {
         this.phone = phone;
         this.personalNumber = personalNumber;
         this.status = status;
-        this.profilePicUrl = profilePicUrl;
-        this.tokens = new ArrayList<>();
-        this.tokens.add("A");
-        this.tokens.add("B");
     }
 
     public String getUid() {

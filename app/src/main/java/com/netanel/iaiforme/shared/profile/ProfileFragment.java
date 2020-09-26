@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.shared;
+package com.netanel.iaiforme.shared.profile;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,15 +31,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.fragments.actions.ActionsManagerFragment;
+import com.netanel.iaiforme.pojo.Noti;
 import com.netanel.iaiforme.pojo.User;
+import com.netanel.iaiforme.shared.EnterExitFragment;
+import com.netanel.iaiforme.shared.SettingsFragment;
 import com.netanel.iaiforme.worker.fragments.actions.ActionsWorkerFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -44,6 +53,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private BottomSheetBehavior mBottomSheetBehavior;
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -56,14 +66,16 @@ public class ProfileFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String userid = user.getUid();
     CollectionReference userName = FirebaseFirestore.getInstance().collection("Users");
-
     ImageView profileImage;
     TextView tvUserName;
     Button setProfilePicBtn;
     ImageView selectedPicImageView;
     Button settingsBtn, actionsBtn , enterExitBtn;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ManagerNotiAdapter managerNotiAdapter = new ManagerNotiAdapter();
+    RecyclerView rvManagerNoti;
+    private CollectionReference managerNotiRef = db.collection("Fcm");
+
     private CollectionReference userRef = db.collection("Users");
 
     public ProfileFragment() {
@@ -83,6 +95,7 @@ public class ProfileFragment extends Fragment {
         setUpViews(view);
         setBottomSheetProfilePicture(view);
         getCurrentUserInfo();
+        setUpManagerNotiRecyclerView(view);
 
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,7 +257,7 @@ public class ProfileFragment extends Fragment {
                 Picasso
                         .get()
                         .load(currentUser.getProfilePicUrl())
-                        .transform(new RoundedCornersTransformation(200, 0, RoundedCornersTransformation.CornerType.ALL))
+                        .transform(new RoundedCornersTransformation(200, 0, RoundedCornersTransformation.CornerType.DIAGONAL_FROM_TOP_RIGHT))
                         .into(profileImage);
 
             }
@@ -256,7 +269,24 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-
+    //Notifications recycler view
+    public void setUpManagerNotiRecyclerView(View view) {
+        rvManagerNoti = view.findViewById(R.id.rv_notifications);
+        managerNotiRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Noti> noti = queryDocumentSnapshots.toObjects(Noti.class);
+                rvManagerNoti.setLayoutManager(new LinearLayoutManager(getActivity(),
+                        RecyclerView.VERTICAL, false));
+                managerNotiAdapter.setNotiArrayList(noti);
+                rvManagerNoti.setAdapter(managerNotiAdapter);
+                DividerItemDecoration itemDecoration2 = new DividerItemDecoration(rvManagerNoti.getContext(),
+                        DividerItemDecoration.VERTICAL);
+                rvManagerNoti.addItemDecoration(itemDecoration2);
+                managerNotiAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 
     //Check user status (Worker or Manager)
     public void checkUserStatus(){

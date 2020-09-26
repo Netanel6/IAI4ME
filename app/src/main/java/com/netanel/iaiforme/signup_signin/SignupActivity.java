@@ -31,7 +31,6 @@ public class SignupActivity extends AppCompatActivity {
     static String status = "Worker";
     String pic;
 
-    private ArrayList<String> tokens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +86,9 @@ public class SignupActivity extends AppCompatActivity {
                                 toast("הרשמה נכשלה!");
                             }
                             Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
+                            intent.putExtra("mail" ,email);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-
                             finish();
                         }
                     });
@@ -110,7 +109,8 @@ public class SignupActivity extends AppCompatActivity {
 
     public void saveUser(View v) {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User user = new User(uid, email, password, name, last, phone, personalNumber, status, pic, tokens);
+        User user = new User(uid, email, password, name, last, phone, personalNumber, status, pic);
+
         userRef.document(uid).set(user);
 
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center|top"
     android:orientation="vertical"
-    tools:context=".shared.ProfileFragment">
+    tools:context=".shared.profile.ProfileFragment">
 
 
     <LinearLayout
@@ -111,10 +111,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1.7"
-                android:background="@android:color/holo_blue_bright">
+                android:layout_marginTop="10dp"
+                >
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_notifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    tools:listitem="@layout/manager_noti_single_cell"
+                    android:orientation="vertical"
+                    app:layout_constraintHorizontal_bias="0.0"
+                 />
 
             </LinearLayout>
         </LinearLayout>

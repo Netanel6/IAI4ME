@@ -24,7 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.User;
-import com.netanel.iaiforme.shared.ProfileFragment;
+import com.netanel.iaiforme.shared.profile.ProfileFragment;
 import com.netanel.iaiforme.shared.home.HomeFragment;
 import com.netanel.iaiforme.signup_signin.SigninActivity;
 import com.netanel.iaiforme.worker.fragments.day_schedule.DayScheduleFragment;
