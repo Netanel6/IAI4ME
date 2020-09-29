@@ -18,10 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.User;
 
-import java.util.ArrayList;
 
-
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity  {
     static FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference userRef = db.collection("Users");
@@ -113,7 +111,6 @@ public class SignupActivity extends AppCompatActivity {
 
         userRef.document(uid).set(user);
 
-
     }
 
     private void toast(String str) {
@@ -123,4 +120,6 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
+
+
 }

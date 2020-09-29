@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,6 @@ import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.DateFromTo;
 
 import java.util.Calendar;
-import java.util.Map;
 
 public class IllnessFragment extends Fragment {
     TextView fromDate, toDate, titleSelectDate;
@@ -35,10 +35,9 @@ public class IllnessFragment extends Fragment {
     boolean isOkayClicked;
     String toDateString , fromDateString;
     DateFromTo dateFromTo;
-    CollectionReference requestRef = FirebaseFirestore.getInstance().collection("Requests");
-    DocumentReference illnessRef = requestRef.document("Illness");
     String  uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+    CollectionReference userRefIllness = FirebaseFirestore.getInstance().collection("Users");
+    DocumentReference userRefDocument = userRefIllness.document(uid);
     public IllnessFragment() {
     }
 
@@ -53,9 +52,7 @@ public class IllnessFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         calendar = Calendar.getInstance();
-//        map = new HashMap<>();
         dateFromTo = new DateFromTo();
-
     }
 
     @Override
@@ -71,8 +68,6 @@ public class IllnessFragment extends Fragment {
         fromDate = view.findViewById(R.id.tv_from_date);
         toDate = view.findViewById(R.id.tv_to_date);
         sendIllnessDays = view.findViewById(R.id.send_illness_btn);
-
-
     }
 
 
@@ -148,12 +143,17 @@ public class IllnessFragment extends Fragment {
         sendIllnessDays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar snackbar = Snackbar.make(v,
-                        "בקשת מחלה נשלחה למנהל", Snackbar.LENGTH_LONG);
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-                dateFromTo = new DateFromTo(uid , fromDateString  , toDateString);
-                illnessRef.collection(dateFromTo.getId()).add(dateFromTo);
-                snackbar.show();
+                if (toDateString == null | fromDateString == null) {
+                    Toast.makeText(getContext(), "לא הוכנס אחד מהתאריכים!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar snackbar = Snackbar.make(v,
+                            "בקשת מחלה נשלחה למנהל", Snackbar.LENGTH_LONG);
+                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                    dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
+//                    illnessRef.collection(dateFromTo.getId()).add(dateFromTo);
+                    userRefDocument.collection("Illness").document().set(dateFromTo);
+                    snackbar.show();
+                }
             }
         });
     }

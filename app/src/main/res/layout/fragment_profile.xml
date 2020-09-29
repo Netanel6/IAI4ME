@@ -27,6 +27,17 @@
             android:layout_marginEnd="10dp"
             android:src="@drawable/contact_person" />
 
+        <TextView
+            android:id="@+id/title_change_profile_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/colorAccent"
+            android:text="לחץ על התמונה בכדי לשנות אותה"
+            android:textColor="@android:color/black"
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/tv_name_profile"
@@ -57,7 +68,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.33"
                 android:orientation="horizontal"
                 android:weightSum="3">

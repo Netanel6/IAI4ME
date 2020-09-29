@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,6 @@ import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.DateFromTo;
 
 import java.util.Calendar;
-import java.util.Map;
 
 public class VacationFragment extends Fragment {
     TextView fromDate, toDate, titleSelectDate;
@@ -33,11 +33,11 @@ public class VacationFragment extends Fragment {
     String dateString;
     Calendar calendar;
     boolean isOkayClicked;
-    String toDateString , fromDateString;
+    String toDateString, fromDateString;
     DateFromTo dateFromTo;
-    CollectionReference requestRef = FirebaseFirestore.getInstance().collection("Requests");
-    DocumentReference vacationRef = requestRef.document("Vacation");
-    String  uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    CollectionReference userRefVacation = FirebaseFirestore.getInstance().collection("Users");
+    DocumentReference userRefDocument = userRefVacation.document(uid);
 
     public VacationFragment() {
     }
@@ -144,14 +144,18 @@ public class VacationFragment extends Fragment {
         sendVacationDays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar snackbar = Snackbar.make(v,
-                        "בקשת חופשה נשלחה למנהל", Snackbar.LENGTH_LONG);
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                if (toDateString == null | fromDateString == null) {
+                    Toast.makeText(getContext(), "לא הוכנס אחד מהתאריכים!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar snackbar = Snackbar.make(v,
+                            "בקשת חופשה נשלחה למנהל", Snackbar.LENGTH_LONG);
+                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
 
-                dateFromTo = new DateFromTo(uid , fromDateString  , toDateString);
-               vacationRef.collection(dateFromTo.getId()).add(dateFromTo);
-               snackbar.show();
-
+                    dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
+//               vacationRef.collection(dateFromTo.getId()).add(dateFromTo);
+                    userRefDocument.collection("Vacation").document().set(dateFromTo);
+                    snackbar.show();
+                }
             }
         });
 
