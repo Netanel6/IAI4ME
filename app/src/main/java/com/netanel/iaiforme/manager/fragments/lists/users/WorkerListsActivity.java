@@ -12,23 +12,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.netanel.iaiforme.R;
-import com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users.AvailableUserListViewModel;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users.AvailableUserListsAdapter;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users.AvailableWorkersFragment;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.users_in_illness_or_vacation.IllnessVacationWorkerFragment;
-import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllUserListViewModel;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllUserListsAdapter;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllWorkerListsFragment;
-import com.netanel.iaiforme.pojo.User;
 import com.netanel.iaiforme.signup_signin.SigninActivity;
 
-import java.util.List;
 
 public class WorkerListsActivity extends AppCompatActivity {
     AllUserListsAdapter allUsersAdapter;
@@ -39,39 +34,38 @@ public class WorkerListsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        setUpViewModel();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_lists);
+        showBackBtn();
         getSupportActionBar().setTitle("רשימות");
         setUpUpperNavigationView();
-        setUpViewModel();
+
+
 
     }
 
 
-    //ViewModels of All , Avaialble , IllenssVacation fragments
-    public void setUpViewModel() {
-        AllUserListViewModel allUserListViewModel = new ViewModelProvider(this).get(AllUserListViewModel.class);
-        allUserListViewModel.getUserListViewModel().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> userList) {
-                allUsersAdapter = new AllUserListsAdapter(userList);
-            }
-        });
+    public void showBackBtn(){
 
-        AvailableUserListViewModel availableUserListViewModel = new ViewModelProvider(this).get(AvailableUserListViewModel.class);
-        availableUserListViewModel.getUserListViewModel().observe(this, new Observer<List<User>>() {
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
-            public void onChanged(List<User> userList) {
-                availableUsersAdapter = new AvailableUserListsAdapter(userList);
+            public void onBackStackChanged() {
+                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
+                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
+                    getSupportActionBar().setHomeButtonEnabled(true);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                } else {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    getSupportActionBar().setHomeButtonEnabled(false);
+                }
             }
+
         });
     }
-
 
     //Menu inflater
     @Override

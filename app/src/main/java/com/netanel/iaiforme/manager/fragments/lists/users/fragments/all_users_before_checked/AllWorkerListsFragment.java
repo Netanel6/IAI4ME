@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,7 @@ import com.netanel.iaiforme.pojo.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AllWorkerListsFragment extends Fragment {
 
@@ -36,6 +40,13 @@ public class AllWorkerListsFragment extends Fragment {
 
 
     public AllWorkerListsFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        setupViewModel();
+
     }
 
     @Override
@@ -62,6 +73,7 @@ public class AllWorkerListsFragment extends Fragment {
 
 
     }
+
 
     public void setUpRecyclerView(View view) {
         TextView workerCount = view.findViewById(R.id.tv_worker_count);
@@ -99,7 +111,7 @@ public class AllWorkerListsFragment extends Fragment {
             public void onClick(View v) {
 
                 Fragment fragment = new SelectedToAcFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.commit();
@@ -112,7 +124,6 @@ public class AllWorkerListsFragment extends Fragment {
                 snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
 
                 snackbar.show();
-//                Toast.makeText(getActivity(), "העובדים שבחרת נוספו לרשימה", Toast.LENGTH_LONG).show();
 
             }
         });

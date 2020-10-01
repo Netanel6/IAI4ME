@@ -70,12 +70,14 @@ public class AllUserListsAdapter extends RecyclerView.Adapter<AllUserListsAdapte
 
     @Override
     public int getItemCount() {
-        if (userList == null) {
+      /*  if (userList == null) {
             return 0;
         } else {
             return userList.size();
 
-        }
+        }*/
+
+        return userList == null ? 0 : userList.size();
 
     }
 

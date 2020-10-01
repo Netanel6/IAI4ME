@@ -20,7 +20,6 @@ public class AcManagmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_ac_managment);
-
         setUpBottomNavigationView();
 
     }

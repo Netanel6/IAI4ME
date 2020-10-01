@@ -1,9 +1,5 @@
 package com.netanel.iaiforme.manager.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,32 +7,64 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.fragments.lists.users.WorkerListsActivity;
-import com.netanel.iaiforme.signup_signin.SigninActivity;
-import com.netanel.iaiforme.shared.home.HomeFragment;
+import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllUserListViewModel;
 import com.netanel.iaiforme.manager.fragments.lists.users.fragments.all_users_before_checked.AllUserListsAdapter;
+import com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users.AvailableUserListViewModel;
+import com.netanel.iaiforme.manager.fragments.lists.users.fragments.available_users.AvailableUserListsAdapter;
+import com.netanel.iaiforme.pojo.User;
+import com.netanel.iaiforme.shared.home.HomeFragment;
 import com.netanel.iaiforme.shared.profile.ProfileFragment;
+import com.netanel.iaiforme.signup_signin.SigninActivity;
+
+import java.util.List;
 
 public class ManagerMainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    AllUserListsAdapter adapter;
+    AllUserListsAdapter allUsersAdapter;
+    AvailableUserListsAdapter availableUserListsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         setContentView(R.layout.activity_manager_main);
-
+        setupViewModel();
         setUpBottomNavigationView();
 
 
     }
 
+    public void setupViewModel() {
+        //All users viewModel
+        AllUserListViewModel allUserListViewModel = new ViewModelProvider(this).get(AllUserListViewModel.class);
+        allUserListViewModel.getUserListViewModel().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> userList) {
+                allUsersAdapter = new AllUserListsAdapter(userList);
+            }
+        });
 
+        //Available users viewModel
+        AvailableUserListViewModel availableUserListViewModel = new ViewModelProvider(this).get(AvailableUserListViewModel.class);
+        availableUserListViewModel.getUserListViewModel().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> userList) {
+                availableUserListsAdapter = new AvailableUserListsAdapter(userList);
+            }
+        });
+
+
+    }
 
     //Bottom navigationView
     public void setUpBottomNavigationView() {
@@ -56,7 +84,7 @@ public class ManagerMainActivity extends AppCompatActivity {
                                 selectedFragment = new HomeFragment();
                                 break;
                             case R.id.nav_lists:
-                                Intent intent = new Intent(ManagerMainActivity.this , WorkerListsActivity.class);
+                                Intent intent = new Intent(ManagerMainActivity.this, WorkerListsActivity.class);
                                 startActivity(intent);
                                 break;
                         }

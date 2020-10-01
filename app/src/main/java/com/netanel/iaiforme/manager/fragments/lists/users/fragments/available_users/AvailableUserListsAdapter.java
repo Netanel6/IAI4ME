@@ -27,6 +27,7 @@ public class AvailableUserListsAdapter extends RecyclerView.Adapter<AvailableUse
     private static List<User> userNewList = new ArrayList<>();
     private static OnCheckItem checkItem;
     private static int REGULAR_WORKER_CELL = 0;
+
     public AvailableUserListsAdapter() {
     }
 
@@ -70,12 +71,8 @@ public class AvailableUserListsAdapter extends RecyclerView.Adapter<AvailableUse
 
     @Override
     public int getItemCount() {
-        if (userList == null) {
-            return 0;
-        } else {
-            return userList.size();
 
-        }
+        return userList == null ? 0 : userList.size();
 
     }
 
