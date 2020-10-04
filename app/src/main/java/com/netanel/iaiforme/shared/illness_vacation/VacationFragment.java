@@ -15,14 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.DateFromTo;
+import com.netanel.iaiforme.pojo.User;
 
 import java.util.Calendar;
 
@@ -36,6 +39,8 @@ public class VacationFragment extends Fragment {
     DateFromTo dateFromTo;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     CollectionReference userRefVacation = FirebaseFirestore.getInstance().collection("Users");
+    String userName = "";
+    String userLast = "";
     DocumentReference userRefDocument = userRefVacation.document(uid);
     CollectionReference requestVacationRef = FirebaseFirestore.getInstance().collection("Vacation");
 
@@ -143,14 +148,23 @@ public class VacationFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(v,
                             "בקשת חופשה נשלחה למנהל", Snackbar.LENGTH_LONG);
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-                    dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
-                    userRefDocument.collection("Vacation").document().set(dateFromTo);
-                    requestVacationRef.add(dateFromTo);
+                    userRefVacation.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User user = documentSnapshot.toObject(User.class);
+                            userName = user.getName();
+                            userLast = user.getLast();
+
+                            dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
+                            userRefDocument.collection("Vacation").document(uid).set(dateFromTo);
+                            dateFromTo = new DateFromTo(uid, userName, userLast, fromDateString, toDateString);
+                            requestVacationRef.document(uid).set(dateFromTo);
+                        }
+                    });
                     snackbar.show();
                 }
             }
         });
-
     }
 
     final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {

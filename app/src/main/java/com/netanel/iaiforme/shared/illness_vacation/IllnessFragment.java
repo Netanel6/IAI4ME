@@ -15,14 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.DateFromTo;
+import com.netanel.iaiforme.pojo.User;
 
 import java.util.Calendar;
 
@@ -36,6 +39,8 @@ public class IllnessFragment extends Fragment {
     DateFromTo dateFromTo;
     String  uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     CollectionReference userRefIllness = FirebaseFirestore.getInstance().collection("Users");
+    String userName = "";
+    String userLast = "";
     DocumentReference userRefDocument = userRefIllness.document(uid);
     CollectionReference requestIllnessRef = FirebaseFirestore.getInstance().collection("Illness");
 
@@ -143,10 +148,19 @@ public class IllnessFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(v,
                             "בקשת מחלה נשלחה למנהל", Snackbar.LENGTH_LONG);
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-                    dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
-//                    illnessRef.collection(dateFromTo.getId()).add(dateFromTo);
-                    userRefDocument.collection("Illness").document().set(dateFromTo);
-                    requestIllnessRef.add(dateFromTo);
+                    userRefIllness.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User user = documentSnapshot.toObject(User.class);
+                            userName = user.getName();
+                            userLast = user.getLast();
+
+                            dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
+                            userRefDocument.collection("Illness").document(uid).set(dateFromTo);
+                            dateFromTo = new DateFromTo(uid, userName, userLast, fromDateString, toDateString);
+                            requestIllnessRef.document(uid).set(dateFromTo);
+                        }
+                    });
                     snackbar.show();
                 }
             }

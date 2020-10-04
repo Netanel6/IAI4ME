@@ -145,14 +145,6 @@ public class AircraftsListsFragment extends Fragment {
                                         snackbar.setTextColor(getResources().getColor(R.color.greenSignIn));
                                         snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
                                         snackbar.show();
-/*
-                                        Fragment fragment = new HomeFragment();
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.replace(R.id.fragment_container, fragment);
-                                        fragmentTransaction.commit();
-                                        */
-
                                         Intent intent = new Intent(getActivity() , ManagerMainActivity.class);
                                         startActivity(intent);
 
