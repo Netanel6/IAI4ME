@@ -32,7 +32,6 @@ public class IllnessFragment extends Fragment {
     DatePickerDialog datePickerDialog;
     String dateString;
     Calendar calendar;
-    boolean isOkayClicked;
     String toDateString , fromDateString;
     DateFromTo dateFromTo;
     String  uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -42,7 +41,6 @@ public class IllnessFragment extends Fragment {
 
     public IllnessFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +58,6 @@ public class IllnessFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setupViews(view);
         pickDates();
     }
@@ -71,7 +68,6 @@ public class IllnessFragment extends Fragment {
         toDate = view.findViewById(R.id.tv_to_date);
         sendIllnessDays = view.findViewById(R.id.send_illness_btn);
     }
-
 
     //Initialize datePicker
     public void showDatePickerDialog() {
@@ -91,13 +87,11 @@ public class IllnessFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
-
                 datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
                         "OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    isOkayClicked = true;
                                     DatePicker datePicker = datePickerDialog
                                             .getDatePicker();
                                     datePickerListener.onDateSet(datePicker,
@@ -105,7 +99,6 @@ public class IllnessFragment extends Fragment {
                                             datePicker.getMonth(),
                                             datePicker.getDayOfMonth());
                                     fromDate.setText("החופש יתחיל בתאריך: " + dateString);
-
                                     dateFromTo.setDateFrom(dateString);
                                      fromDateString = dateFromTo.getDateFrom();
 
@@ -124,7 +117,6 @@ public class IllnessFragment extends Fragment {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    isOkayClicked = true;
                                     DatePicker datePicker = datePickerDialog
                                             .getDatePicker();
                                     datePickerListener.onDateSet(datePicker,

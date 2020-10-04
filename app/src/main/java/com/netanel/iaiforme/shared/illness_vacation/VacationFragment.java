@@ -32,7 +32,6 @@ public class VacationFragment extends Fragment {
     DatePickerDialog datePickerDialog;
     String dateString;
     Calendar calendar;
-    boolean isOkayClicked;
     String toDateString, fromDateString;
     DateFromTo dateFromTo;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -53,14 +52,12 @@ public class VacationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         calendar = Calendar.getInstance();
-//        map = new HashMap<>();
         dateFromTo = new DateFromTo();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setupViews(view);
         pickDates();
     }
@@ -70,7 +67,6 @@ public class VacationFragment extends Fragment {
         fromDate = view.findViewById(R.id.tv_from_date);
         toDate = view.findViewById(R.id.tv_to_date);
         sendVacationDays = view.findViewById(R.id.send_vacation_btn);
-
     }
 
     //Initialize datePicker
@@ -97,7 +93,6 @@ public class VacationFragment extends Fragment {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    isOkayClicked = true;
                                     DatePicker datePicker = datePickerDialog
                                             .getDatePicker();
                                     datePickerListener.onDateSet(datePicker,
@@ -105,7 +100,6 @@ public class VacationFragment extends Fragment {
                                             datePicker.getMonth(),
                                             datePicker.getDayOfMonth());
                                     fromDate.setText("החופש יתחיל בתאריך: " + dateString);
-
                                     dateFromTo.setDateFrom(dateString);
                                     fromDateString = dateFromTo.getDateFrom();
 
@@ -118,13 +112,11 @@ public class VacationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
-
                 datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
                         "OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    isOkayClicked = true;
                                     DatePicker datePicker = datePickerDialog
                                             .getDatePicker();
                                     datePickerListener.onDateSet(datePicker,
@@ -151,9 +143,7 @@ public class VacationFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(v,
                             "בקשת חופשה נשלחה למנהל", Snackbar.LENGTH_LONG);
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-
                     dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
-//               vacationRef.collection(dateFromTo.getId()).add(dateFromTo);
                     userRefDocument.collection("Vacation").document().set(dateFromTo);
                     requestVacationRef.add(dateFromTo);
                     snackbar.show();
