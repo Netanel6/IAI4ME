@@ -6,7 +6,7 @@
     android:background="@drawable/send_request_background"
     android:gravity="center|bottom"
     android:orientation="vertical"
-    tools:context=".worker.fragments.actions.send_request.VacationFragment">
+    tools:context=".shared.illness_vacation.VacationFragment">
 
     <TextView
         android:id="@+id/tv_from_date"

@@ -51,9 +51,9 @@
             android:parentActivityName=".manager.activities.ManagerMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".manager.fragments.actions.SendFcmActivity"
+            android:name=".manager.fragments.actions.send_fcm.SendFcmActivity"
             android:configChanges="orientation"
-            android:parentActivityName=".manager.fragments.actions.SendFcmActivity"
+            android:parentActivityName=".manager.fragments.actions.send_fcm.SendFcmActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".manager.fragments.actions.ac_managment.AcManagmentActivity"

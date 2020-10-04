@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.netanel.iaiforme.R;
+import com.netanel.iaiforme.shared.illness_vacation.IllnessFragment;
+import com.netanel.iaiforme.shared.illness_vacation.VacationFragment;
 
 public class SendRequestActivity extends AppCompatActivity {
 

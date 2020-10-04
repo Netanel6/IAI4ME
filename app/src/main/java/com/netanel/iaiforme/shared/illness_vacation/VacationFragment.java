@@ -1,4 +1,4 @@
-package com.netanel.iaiforme.worker.fragments.actions.send_request;
+package com.netanel.iaiforme.shared.illness_vacation;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -38,6 +38,7 @@ public class VacationFragment extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     CollectionReference userRefVacation = FirebaseFirestore.getInstance().collection("Users");
     DocumentReference userRefDocument = userRefVacation.document(uid);
+    CollectionReference requestVacationRef = FirebaseFirestore.getInstance().collection("Vacation");
 
     public VacationFragment() {
     }
@@ -154,6 +155,7 @@ public class VacationFragment extends Fragment {
                     dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
 //               vacationRef.collection(dateFromTo.getId()).add(dateFromTo);
                     userRefDocument.collection("Vacation").document().set(dateFromTo);
+                    requestVacationRef.add(dateFromTo);
                     snackbar.show();
                 }
             }

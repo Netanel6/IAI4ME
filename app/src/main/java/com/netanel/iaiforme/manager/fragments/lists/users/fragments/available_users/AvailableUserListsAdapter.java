@@ -140,18 +140,14 @@ public class AvailableUserListsAdapter extends RecyclerView.Adapter<AvailableUse
                             checkItem.removeNewUser(userList.get(position));
                         }
                     }
-
                 }
             });
-
-
         }
     }
 
-
     public interface OnCheckItem {
-        void addNewUser(User user);
 
+        void addNewUser(User user);
         void removeNewUser(User user);
     }
 

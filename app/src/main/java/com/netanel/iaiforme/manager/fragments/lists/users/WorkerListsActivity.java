@@ -26,14 +26,13 @@ import com.netanel.iaiforme.signup_signin.SigninActivity;
 
 
 public class WorkerListsActivity extends AppCompatActivity {
-    AllUserListsAdapter allUsersAdapter;
-    AvailableUserListsAdapter availableUsersAdapter;
+    AllUserListsAdapter allUsersAdapter = new AllUserListsAdapter();
+    AvailableUserListsAdapter availableUsersAdapter = new AvailableUserListsAdapter();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -43,9 +42,6 @@ public class WorkerListsActivity extends AppCompatActivity {
         showBackBtn();
         getSupportActionBar().setTitle("רשימות");
         setUpUpperNavigationView();
-
-
-
     }
 
 
@@ -63,14 +59,12 @@ public class WorkerListsActivity extends AppCompatActivity {
                     getSupportActionBar().setHomeButtonEnabled(false);
                 }
             }
-
         });
     }
 
-    //Menu inflater
+    //Menu inflater + Search item
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.manager_profile_menu_with_search, menu);
 
@@ -82,18 +76,15 @@ public class WorkerListsActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 allUsersAdapter.getFilter().filter(newText);
                 availableUsersAdapter.getFilter().filter(newText);
                 return false;
             }
-
         });
         return true;
     }
-
 
     //upper navigationView
     public void setUpUpperNavigationView() {
@@ -116,26 +107,20 @@ public class WorkerListsActivity extends AppCompatActivity {
                                 selectedFragment = new AllWorkerListsFragment();
                                 break;
                         }
-
                         if (selectedFragment != null) {
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.fragment_container, selectedFragment)
                                     .commit();
                         }
-
                         return true;
-
                     }
                 };
-
 
         BottomNavigationView bottomNav = findViewById(R.id.upper_nav_worker_list);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.setSelectedItemId(R.id.nav_lists_general);
-
     }
-
 
     //Options - upper left
     @Override
@@ -155,6 +140,5 @@ public class WorkerListsActivity extends AppCompatActivity {
         Toast.makeText(this, "התנתקת מהמערכת!", Toast.LENGTH_SHORT).show();
         finish();
     }
-
 
 }
