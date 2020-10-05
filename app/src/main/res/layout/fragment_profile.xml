@@ -132,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    tools:listitem="@layout/manager_noti_single_cell"
+                    tools:listitem="@layout/single_cell_manager_noti"
                     android:orientation="vertical"
                     app:layout_constraintHorizontal_bias="0.0"
                  />

@@ -38,7 +38,7 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
     @Override
     public AircraftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //adds space to the last item in the recycler view
-        int type = viewType == AIRCRAFT_SINGLE_CELL ? R.layout.aircraft_single_cell : R.layout.last_aircraft_single_cell;
+        int type = viewType == AIRCRAFT_SINGLE_CELL ? R.layout.aircraft_single_cell : R.layout.single_cell_last_aircraft;
 
         View v = LayoutInflater.from(parent.getContext()).inflate(type, parent, false);
         return new AircraftViewHolder(v);

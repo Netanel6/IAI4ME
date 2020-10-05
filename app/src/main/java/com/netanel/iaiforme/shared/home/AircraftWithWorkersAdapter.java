@@ -25,7 +25,7 @@ public class AircraftWithWorkersAdapter extends RecyclerView.Adapter<AircraftWit
     @Override
     public AircraftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.day_schedule_single_cell, parent, false);
+                .inflate(R.layout.single_cell_day_schedule, parent, false);
         return new AircraftViewHolder(view);
     }
 

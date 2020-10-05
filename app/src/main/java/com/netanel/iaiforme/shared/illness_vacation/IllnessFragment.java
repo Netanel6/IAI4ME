@@ -35,9 +35,9 @@ public class IllnessFragment extends Fragment {
     DatePickerDialog datePickerDialog;
     String dateString;
     Calendar calendar;
-    String toDateString , fromDateString;
+    String toDateString, fromDateString;
     DateFromTo dateFromTo;
-    String  uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     CollectionReference userRefIllness = FirebaseFirestore.getInstance().collection("Users");
     String userName = "";
     String userLast = "";
@@ -105,7 +105,7 @@ public class IllnessFragment extends Fragment {
                                             datePicker.getDayOfMonth());
                                     fromDate.setText("החופש יתחיל בתאריך: " + dateString);
                                     dateFromTo.setDateFrom(dateString);
-                                     fromDateString = dateFromTo.getDateFrom();
+                                    fromDateString = dateFromTo.getDateFrom();
 
                                 }
                             }
@@ -131,7 +131,7 @@ public class IllnessFragment extends Fragment {
                                     toDate.setText("החופש יסתיים בתאריך: " + dateString);
 
                                     dateFromTo.setDateTo(dateString);
-                                     toDateString = dateFromTo.getDateTo();
+                                    toDateString = dateFromTo.getDateTo();
                                 }
                             }
                         });

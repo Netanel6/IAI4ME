@@ -31,7 +31,7 @@ public class SelectedToAcAdapter extends RecyclerView.Adapter<SelectedToAcAdapte
     @NonNull
     @Override
     public SelectedToAcViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selected_worker_single_cell, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_cell_selected_worker, parent, false);
         return new SelectedToAcViewHolder(view);    }
 
     @Override

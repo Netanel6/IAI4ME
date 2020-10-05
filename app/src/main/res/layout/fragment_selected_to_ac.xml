@@ -28,7 +28,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:listitem="@layout/selected_worker_single_cell" />
+        tools:listitem="@layout/single_cell_selected_worker" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/to_ac_with_workers_btn"

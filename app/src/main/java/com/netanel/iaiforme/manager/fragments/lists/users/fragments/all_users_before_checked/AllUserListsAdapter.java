@@ -41,7 +41,7 @@ public class AllUserListsAdapter extends RecyclerView.Adapter<AllUserListsAdapte
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         //adds space to the last item in the recycler view
-        int type = viewType == REGULAR_WORKER_CELL ? R.layout.worker_single_cell : R.layout.last_worker_single_cell;
+        int type = viewType == REGULAR_WORKER_CELL ? R.layout.single_cell_worker : R.layout.single_cell_last_worker;
 
         View v = LayoutInflater.from(parent.getContext()).inflate(type, parent, false);
         return new UserViewHolder(v);

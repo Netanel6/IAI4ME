@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.Noti;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.ManagerNotiViewHolder> {
@@ -32,7 +29,7 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
     @Override
     public ManagerNotiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.manager_noti_single_cell, parent, false);
+                .inflate(R.layout.single_cell_manager_noti, parent, false);
         return new ManagerNotiViewHolder(view);
     }
 

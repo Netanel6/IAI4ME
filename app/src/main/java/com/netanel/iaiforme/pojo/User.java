@@ -19,11 +19,6 @@ public class User {
     public User() {
     }
 
-    public User(String profilePicUrl){
-        this.profilePicUrl = profilePicUrl;
-    }
-
-
     public User(String uid, String email, String password, String name, String last, String phone, String personalNumber, String status, String pic) {
         this.uid = uid;
         this.email = email;
