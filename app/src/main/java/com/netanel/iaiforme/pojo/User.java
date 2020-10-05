@@ -28,6 +28,7 @@ public class User {
         this.phone = phone;
         this.personalNumber = personalNumber;
         this.status = status;
+
     }
 
     public String getUid() {

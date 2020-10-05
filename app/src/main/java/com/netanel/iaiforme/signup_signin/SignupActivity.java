@@ -26,8 +26,6 @@ public class SignupActivity extends AppCompatActivity  {
     private String uid;
     private EditText emailEt, passwordEt, nameEt, lastEt, phoneEt, personalNumberEt;
     static String email, password, name, last, phone, personalNumber;
-    static String status = "Worker";
-    String pic;
 
 
     @Override
@@ -107,8 +105,7 @@ public class SignupActivity extends AppCompatActivity  {
 
     public void saveUser(View v) {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User user = new User(uid, email, password, name, last, phone, personalNumber, status, pic);
-
+        User user = new User(uid, email, password, name, last, phone, personalNumber, "Worker", "pic");
         userRef.document(uid).set(user);
 
     }
