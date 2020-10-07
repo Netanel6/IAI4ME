@@ -14,12 +14,12 @@ public class User {
     private String personalNumber;
     private String status;
     private String profilePicUrl;
-    private ArrayList<String> tokens;
+    private String token;
 
     public User() {
     }
 
-    public User(String uid, String email, String password, String name, String last, String phone, String personalNumber, String status, String pic) {
+    public User(String uid, String email, String password, String name, String last, String phone, String personalNumber, String status, String pic , String token) {
         this.uid = uid;
         this.email = email;
         this.password = password;
@@ -28,6 +28,7 @@ public class User {
         this.phone = phone;
         this.personalNumber = personalNumber;
         this.status = status;
+        this.token = token;
 
     }
 
@@ -103,19 +104,18 @@ public class User {
         this.profilePicUrl = profilePicUrl;
     }
 
-    public ArrayList<String> getTokens() {
-        return tokens;
+    public String getToken() {
+        return token;
     }
 
-    public void setTokens(ArrayList<String> tokens) {
-        this.tokens = tokens;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
     public String toString() {
         return name + " " + last;
     }
-
 
 
 }

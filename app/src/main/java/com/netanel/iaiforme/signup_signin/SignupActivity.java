@@ -105,7 +105,7 @@ public class SignupActivity extends AppCompatActivity  {
 
     public void saveUser(View v) {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User user = new User(uid, email, password, name, last, phone, personalNumber, "Worker", "pic");
+        User user = new User(uid, email, password, name, last, phone, personalNumber, "Worker", "pic" , "");
         userRef.document(uid).set(user);
 
     }

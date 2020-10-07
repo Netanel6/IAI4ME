@@ -41,7 +41,6 @@ import com.netanel.iaiforme.manager.fragments.actions.ActionsManagerFragment;
 import com.netanel.iaiforme.pojo.Noti;
 import com.netanel.iaiforme.pojo.User;
 import com.netanel.iaiforme.shared.EnterExitFragment;
-import com.netanel.iaiforme.shared.SettingsFragment;
 import com.netanel.iaiforme.worker.fragments.actions.ActionsWorkerFragment;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +69,7 @@ public class ProfileFragment extends Fragment {
     TextView tvUserName;
     Button setProfilePicBtn;
     ImageView selectedPicImageView;
-    Button settingsBtn, actionsBtn , enterExitBtn;
+    Button  actionsBtn , enterExitBtn;
 
     private ManagerNotiAdapter managerNotiAdapter = new ManagerNotiAdapter();
     RecyclerView rvManagerNoti;
@@ -97,12 +96,6 @@ public class ProfileFragment extends Fragment {
         getCurrentUserInfo();
         setUpManagerNotiRecyclerView(view);
 
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeBetweenFragment(new SettingsFragment());
-            }
-        });
 
         enterExitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +111,6 @@ public class ProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.profile_image);
         actionsBtn = view.findViewById(R.id.actions_btn);
         enterExitBtn = view.findViewById(R.id.enter_exit_btn);
-        settingsBtn = view.findViewById(R.id.settings_btn);
     }
 
 

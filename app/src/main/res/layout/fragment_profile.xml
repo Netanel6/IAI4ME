@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/actions_btn"
@@ -103,19 +103,6 @@
                     android:text="נוכחות"
                     android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/settings_btn"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:textColor="@color/colorAccent"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_settings"
-                    android:gravity="center"
-                    android:text="הגדרות"
-                    android:textSize="18sp" />
 
 
             </LinearLayout>
