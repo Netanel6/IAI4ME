@@ -88,7 +88,6 @@ public class AircraftsListsFragment extends Fragment {
             @Override
             public void addAircraftWithUsers(Aircraft aircraft, int counter) {
                 if (counter == 1) {
-
                     Snackbar snackbar = Snackbar.make(getView(),
                             "העובדים התווספו בהצלחה למטוס:\n"
                                     + aircraft.getName() + " " + aircraft.getModel() + "\t \t \t \t \t \t \t"
@@ -96,8 +95,7 @@ public class AircraftsListsFragment extends Fragment {
                     snackbar.setTextColor(getResources().getColor(R.color.greenSignIn));
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
                     snackbar.show();
-                } else {
-
+                } else if (counter == 2) {
                     Snackbar snackbar = Snackbar.make(getView(),
                             "בוטלה בחירת מטוס:\n"
                                     + aircraft.getName() + " " + aircraft.getModel() + "\t \t \t \t \t \t \t"
@@ -109,7 +107,7 @@ public class AircraftsListsFragment extends Fragment {
             }
 
 
-            //Update docuemnt
+            //Update document
             @Override
             public void getAdapterPosition(int position) {
 

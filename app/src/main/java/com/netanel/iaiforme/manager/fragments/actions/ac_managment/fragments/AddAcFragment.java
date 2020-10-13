@@ -8,12 +8,15 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +29,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,7 +47,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import static android.app.Activity.RESULT_OK;
 
 
-public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference aircraftRef = db.collection("AircraftList");
     Aircraft aircraft = new Aircraft();
@@ -60,10 +61,9 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
     private ProgressBar uploadPakaProgressBar;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageFbUri;
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("AircraftPaka");
+    private StorageReference storagePakaReference = FirebaseStorage.getInstance().getReference("AircraftPaka");
     private CollectionReference uploadPicFireStoreRef = FirebaseFirestore.getInstance().collection("AircraftList");
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String userid = user.getUid();
+
 
     public AddAcFragment() {
     }
@@ -88,7 +88,6 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
         uploadPic();
         setDateAndAcBtn();
         setBottomSheetPaka(view);
-
     }
 
     public void setDateAndAcBtn() {
@@ -119,8 +118,8 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
         btnAddPaka = view.findViewById(R.id.add_paka_ac_m);
         btnSavePaka = view.findViewById(R.id.set_ac_paka);
         uploadPakaProgressBar = view.findViewById(R.id.upload_paka_progress_bar);
-        btnAddAc = view.findViewById(R.id.add_ac_btn);
 
+        btnAddAc = view.findViewById(R.id.add_ac_btn);
     }
 
 
@@ -209,7 +208,7 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
             public void onClick(View v) {
 
                 if (imageFbUri != null) {
-                    StorageReference fileRef = storageReference.child(userid);
+                    StorageReference fileRef = storagePakaReference.child(etAcName.getText().toString() + " " + etAcModel.getText().toString());
                     fileRef.putFile(imageFbUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -273,7 +272,7 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
         if (aircraft.getName() == null | aircraft.getModel() == null | exitDate == null) {
             Toast.makeText(getContext(), "לא הוכנסו אחד או יותר מפרטי המטוס", Toast.LENGTH_SHORT).show();
         } else {
-            aircraft = new Aircraft(acName, acModel, exitDate , aircraft.getPaka());
+            aircraft = new Aircraft(acName, acModel, exitDate, aircraft.getPaka());
             aircraftRef.add(aircraft).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
@@ -290,7 +289,6 @@ public class AddAcFragment extends Fragment implements DatePickerDialog.OnDateSe
             etAcModel.setText("");
             tvSetDate.setText("");
         }
-
 
 
     }

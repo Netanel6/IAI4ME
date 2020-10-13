@@ -1,5 +1,10 @@
 package com.netanel.iaiforme.pojo;
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 public class Aircraft {
@@ -103,6 +108,7 @@ public class Aircraft {
     public void setPaka(String paka) {
         this.paka = paka;
     }
+
 
     @Override
     public String toString() {

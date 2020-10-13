@@ -13,5 +13,13 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
 
+    
+    <string-array name="aircraft_types">
+        <item>737</item>
+        <item>747</item>
+        <item>767</item>
+        <item>a330</item>
+        <item>a340</item>
+    </string-array>
 
 </resources>

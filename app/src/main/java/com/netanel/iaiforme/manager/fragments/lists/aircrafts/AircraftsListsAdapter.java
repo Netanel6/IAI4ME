@@ -79,6 +79,8 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
 
             tvName = itemView.findViewById(R.id.tv_ac_name);
             tvModel = itemView.findViewById(R.id.tv_ac_model);
+            tvDate = itemView.findViewById(R.id.tv_date_worker_list);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,16 +92,18 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
                             onitemClick.getAdapterPosition(position);
                         }
                     } else if (counter == 2) {
-                        itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.redSignIn));
+                        itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.fui_transparent));
                         if (onitemClick != null && position != RecyclerView.NO_POSITION) {
                             onitemClick.addAircraftWithUsers(aircraftList.get(position), counter);
                             onitemClick.getAdapterPosition(position);
                         }
                     }
                     counter++;
+                    if (counter == 3){
+                        counter = 1;
+                    }
                 }
             });
-            tvDate = itemView.findViewById(R.id.tv_date_worker_list);
         }
     }
 
