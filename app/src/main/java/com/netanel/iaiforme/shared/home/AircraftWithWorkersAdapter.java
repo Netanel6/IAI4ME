@@ -33,8 +33,8 @@ public class AircraftWithWorkersAdapter extends RecyclerView.Adapter<AircraftWit
     public void onBindViewHolder(@NonNull AircraftViewHolder holder, int position) {
 
         Aircraft aircraft = aircraftWithWorkersList.get(position);
-        holder.tvDateAdded.setText(aircraft.getDate());
-        holder.timeDate.setText(aircraft.getTimeDate());
+        holder.tvDateAdded.setText("רשימה עודכנה בתאריך: " + aircraft.getDate());
+        holder.timeDate.setText("תאריך יציאת המטוס: " + aircraft.getTimeDate());
         holder.tvAcName.setText(aircraft.getName());
         holder.tvAcModel.setText(aircraft.getModel());
 

@@ -9,6 +9,7 @@ public class Aircraft {
     private String date;
     private String timeDate;
     private String id;
+    private String paka;
     private ArrayList<User> userArrayList = new ArrayList<>();
 
     public Aircraft() {
@@ -39,10 +40,11 @@ public class Aircraft {
     }
 
     //Add ac fragment and aircraft list fragment
-    public Aircraft(String name, String model, String date) {
+    public Aircraft(String name, String model, String date , String paka) {
         this.name = name;
         this.model = model;
         this.date = date;
+        this.paka = paka;
     }
 
     public String getName() {
@@ -94,6 +96,14 @@ public class Aircraft {
         return id;
     }
 
+    public String getPaka() {
+        return paka;
+    }
+
+    public void setPaka(String paka) {
+        this.paka = paka;
+    }
+
     @Override
     public String toString() {
         return "Aircraft{" +
@@ -102,7 +112,6 @@ public class Aircraft {
                 ", status=" +
                 '}';
     }
-
 
 }
 

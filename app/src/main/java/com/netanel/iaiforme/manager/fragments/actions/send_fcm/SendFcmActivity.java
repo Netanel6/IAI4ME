@@ -63,7 +63,7 @@ public class SendFcmActivity extends AppCompatActivity {
 
                 String fcmTitleText = etFcmTitle.getText().toString();
                 String fcmDescriptionText = etFcmDescription.getText().toString();
-                noti.setDate(timeDate);
+                noti.setDate("נשלח בתאריך: " + timeDate);
                 noti.setTitle(fcmTitleText);
                 noti.setDescription(fcmDescriptionText);
                 fcmSendMessageRef.add(noti);

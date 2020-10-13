@@ -39,7 +39,7 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
 
 
 
-        holder.tvNotiDate.setText(noti.getDate());
+        holder.tvNotiDate.setText("נשלח בתאריך: " + noti.getDate());
         holder.tvNotiTitle.setText(noti.getTitle());
         holder.tvNotiTitle.setTextColor(Color.BLUE);
         holder.tvNotiDescription.setText(noti.getDescription());
