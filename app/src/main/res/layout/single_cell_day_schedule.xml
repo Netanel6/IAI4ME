@@ -18,7 +18,7 @@
 
 
         <TextView
-            android:id="@+id/current_time"
+            android:id="@+id/tv_last_updated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -27,7 +27,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_date_added"
+            android:id="@+id/tv_exit_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

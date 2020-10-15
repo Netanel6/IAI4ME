@@ -1,8 +1,5 @@
 package com.netanel.iaiforme.shared.home;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class AircraftWithWorkersAdapter extends RecyclerView.Adapter<AircraftWithWorkersAdapter.AircraftViewHolder> {
     private List<Aircraft> aircraftWithWorkersList = new ArrayList<>();
@@ -40,8 +35,8 @@ public class AircraftWithWorkersAdapter extends RecyclerView.Adapter<AircraftWit
     public void onBindViewHolder(@NonNull AircraftViewHolder holder, int position) {
 
         Aircraft aircraft = aircraftWithWorkersList.get(position);
-        holder.tvDateAdded.setText("רשימה עודכנה בתאריך: " + aircraft.getDate());
-        holder.timeDate.setText("תאריך יציאת המטוס: " + aircraft.getTimeDate());
+        holder.tvExitDate.setText("תאריך יציאת המטוס: " + aircraft.getDate());
+        holder.tvLastUpdated.setText("רשימה עודכנה בתאריך: " + aircraft.getTimeDate());
         holder.tvAcName.setText(aircraft.getName());
         holder.tvAcModel.setText(aircraft.getModel());
         StringBuilder builder = new StringBuilder();
@@ -61,15 +56,15 @@ public class AircraftWithWorkersAdapter extends RecyclerView.Adapter<AircraftWit
     }
 
     public class AircraftViewHolder extends RecyclerView.ViewHolder {
-        TextView  tvAcName , tvAcModel , tvDateAdded , timeDate , tvWorkerList;
+        TextView  tvAcName , tvAcModel , tvExitDate, tvLastUpdated, tvWorkerList;
         ImageView ivPaka;
         public AircraftViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvDateAdded = itemView.findViewById(R.id.tv_date_added);
+            tvExitDate = itemView.findViewById(R.id.tv_exit_date);
             tvAcName = itemView.findViewById(R.id.tv_ac_name);
             tvAcModel = itemView.findViewById(R.id.tv_ac_model);
-            timeDate = itemView.findViewById(R.id.current_time);
+            tvLastUpdated = itemView.findViewById(R.id.tv_last_updated);
             ivPaka = itemView.findViewById(R.id.ac_paka);
             tvWorkerList = itemView.findViewById(R.id.tv_date_worker_list);
         }
