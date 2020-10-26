@@ -8,12 +8,9 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.netanel.iaiforme.R;
@@ -26,14 +23,9 @@ import com.netanel.iaiforme.signup_signin.SigninActivity;
 
 
 public class WorkerListsActivity extends AppCompatActivity {
-    AllUserListsAdapter allUsersAdapter = new AllUserListsAdapter();
-    AvailableUserListsAdapter availableUsersAdapter = new AvailableUserListsAdapter();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+   private final AllUserListsAdapter allUsersAdapter = new AllUserListsAdapter();
+    private final AvailableUserListsAdapter availableUsersAdapter = new AvailableUserListsAdapter();
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +33,19 @@ public class WorkerListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_worker_lists);
         showBackBtn();
         getSupportActionBar().setTitle("רשימות");
-        setUpUpperNavigationView();
+        setupUpperNavigationView();
     }
-
 
     public void showBackBtn(){
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
-                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
-                    getSupportActionBar().setHomeButtonEnabled(true);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                } else {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                }
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
+            if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
+                getSupportActionBar().setHomeButtonEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeButtonEnabled(false);
             }
         });
     }
@@ -67,7 +55,6 @@ public class WorkerListsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.manager_profile_menu_with_search, menu);
-
         MenuItem searchItem = menu.findItem(R.id.search_item);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -87,34 +74,31 @@ public class WorkerListsActivity extends AppCompatActivity {
     }
 
     //upper navigationView
-    public void setUpUpperNavigationView() {
+    public void setupUpperNavigationView() {
 
         //Bottom navigation
         BottomNavigationView.OnNavigationItemSelectedListener navListener =
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        Fragment selectedFragment = null;
+                menuItem -> {
+                    Fragment selectedFragment = null;
 
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_available:
-                                selectedFragment = new AvailableWorkersFragment();
-                                break;
-                            case R.id.nav_illness_vacation:
-                                selectedFragment = new IllnessVacationWorkerFragment();
-                                break;
-                            case R.id.nav_lists_general:
-                                selectedFragment = new AllWorkerListsFragment();
-                                break;
-                        }
-                        if (selectedFragment != null) {
-                            getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.fragment_container, selectedFragment)
-                                    .commit();
-                        }
-                        return true;
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_available:
+                            selectedFragment = new AvailableWorkersFragment();
+                            break;
+                        case R.id.nav_illness_vacation:
+                            selectedFragment = new IllnessVacationWorkerFragment();
+                            break;
+                        case R.id.nav_lists_general:
+                            selectedFragment = new AllWorkerListsFragment();
+                            break;
                     }
+                    if (selectedFragment != null) {
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, selectedFragment)
+                                .commit();
+                    }
+                    return true;
                 };
 
         BottomNavigationView bottomNav = findViewById(R.id.upper_nav_worker_list);

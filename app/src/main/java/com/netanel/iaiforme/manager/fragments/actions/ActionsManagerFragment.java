@@ -20,38 +20,25 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
-import com.netanel.iaiforme.manager.fragments.actions.ac_managment.AcManagmentActivity;
+import com.netanel.iaiforme.manager.fragments.actions.ac_managment.AcManagementActivity;
 import com.netanel.iaiforme.manager.fragments.actions.send_fcm.SendFcmActivity;
 import com.netanel.iaiforme.pojo.User;
 import com.netanel.iaiforme.worker.fragments.actions.send_request.SendRequestActivity;
 
 public class ActionsManagerFragment extends Fragment implements View.OnClickListener {
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private String userid = user.getUid();
-
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private final String userid = user.getUid();
     Button acManagmentBtn, sendFcmBtn , sendRequestBtn;
     TextView tvName;
     private CollectionReference userNameRef = FirebaseFirestore.getInstance().collection("Users");
+
     public ActionsManagerFragment() {
-        // Required empty public constructor
     }
-
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_actions_manager, container, false);
     }
 
@@ -60,10 +47,9 @@ public class ActionsManagerFragment extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         setupViews(view);
         getUserName(view);
-
-
-
     }
+
+    //Setup views
     public void setupViews(View view){
         acManagmentBtn = view.findViewById(R.id.manage_ac_btn);
         sendFcmBtn = view.findViewById(R.id.send_fcm_btn);
@@ -71,14 +57,14 @@ public class ActionsManagerFragment extends Fragment implements View.OnClickList
         acManagmentBtn.setOnClickListener(this);
         sendFcmBtn.setOnClickListener(this);
         sendRequestBtn.setOnClickListener(this);
-
     }
+
     //Implementation of OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.manage_ac_btn:
-                goToClass(AcManagmentActivity.class);
+                goToClass(AcManagementActivity.class);
                 break;
             case R.id.send_fcm_btn:
                 goToClass(SendFcmActivity.class);
@@ -88,7 +74,6 @@ public class ActionsManagerFragment extends Fragment implements View.OnClickList
                 break;
         }
     }
-
 
     //Retrieve current logged in users' name
     public void getUserName(View view){

@@ -5,27 +5,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.User;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class SelectedToAcAdapter extends RecyclerView.Adapter<SelectedToAcAdapter.SelectedToAcViewHolder> {
-    List<User> userList ;
+    private List<User> userList ;
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 
     public SelectedToAcAdapter() {
-
     }
 
     @NonNull
@@ -48,8 +43,6 @@ public class SelectedToAcAdapter extends RecyclerView.Adapter<SelectedToAcAdapte
                 .load(user.getProfilePicUrl())
                 .transform(new RoundedCornersTransformation(200, 0, RoundedCornersTransformation.CornerType.DIAGONAL_FROM_TOP_RIGHT))
                 .into(holder.userPic);
-
-
     }
 
     @Override
@@ -58,14 +51,16 @@ public class SelectedToAcAdapter extends RecyclerView.Adapter<SelectedToAcAdapte
             return 0;
         } else {
             return userList.size();
-
         }
     }
 
-    static class SelectedToAcViewHolder extends RecyclerView.ViewHolder
-    {
-        private TextView tvName, tvLast, tvPhone, tvEmail, tvPersonalNumber;
-        private ImageView userPic;
+    static class SelectedToAcViewHolder extends RecyclerView.ViewHolder {
+        private final TextView tvName;
+        private final TextView tvLast;
+        private final TextView tvPhone;
+        private final TextView tvEmail;
+        private final TextView tvPersonalNumber;
+        private final ImageView userPic;
         public SelectedToAcViewHolder(View itemView) {
             super(itemView);
             userPic = itemView.findViewById(R.id.user_pic_mw);
@@ -75,6 +70,5 @@ public class SelectedToAcAdapter extends RecyclerView.Adapter<SelectedToAcAdapte
             tvPersonalNumber = itemView.findViewById(R.id.tv_personal_number_mw);
             tvEmail = itemView.findViewById(R.id.tv_email_mw);
         }
-
     }
 }

@@ -6,40 +6,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.activities.ManagerMainActivity;
 import com.netanel.iaiforme.manager.fragments.lists.users.users_after_checked.SelectedToAcFragment;
 import com.netanel.iaiforme.pojo.Aircraft;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 
 public class AircraftsListsFragment extends Fragment {
 
-    private AircraftsListsAdapter adapter = new AircraftsListsAdapter();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference selectedAcWithWorkersFS = db.collection("AircraftList");
+    private final AircraftsListsAdapter adapter = new AircraftsListsAdapter();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference selectedAcWithWorkersFS = db.collection("AircraftList");
     public Aircraft aircraftWithWorkers = new Aircraft();
 
 
@@ -59,19 +52,14 @@ public class AircraftsListsFragment extends Fragment {
 
         airCraftListViewModel();
         setUpRecyclerView(view);
-
-
     }
 
     //Aircraft ViewModel
     public void airCraftListViewModel() {
         AircraftListViewModel aircraftListViewModel = new ViewModelProvider(this).get(AircraftListViewModel.class);
-        aircraftListViewModel.getAircraftListViewModel().observe(getViewLifecycleOwner(), new Observer<List<Aircraft>>() {
-            @Override
-            public void onChanged(List<Aircraft> aircraftList) {
-                adapter.setAircraftList(aircraftList);
-                adapter.notifyDataSetChanged();
-            }
+        aircraftListViewModel.getAircraftListViewModel().observe(getViewLifecycleOwner(), aircraftList -> {
+            adapter.setAircraftList(aircraftList);
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -123,30 +111,25 @@ public class AircraftsListsFragment extends Fragment {
                     public void onClick(View v) {
                         Log.d("TAG", "onClick: " + aircraftWithWorkers.getId());
 
+                        selectedAcWithWorkersFS.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Aircraft aircraft = documentSnapshot.toObject(Aircraft.class);
+                                aircraft.setId(documentSnapshot.getId());
 
-                        selectedAcWithWorkersFS.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    Aircraft aircraft = documentSnapshot.toObject(Aircraft.class);
-                                    aircraft.setId(documentSnapshot.getId());
+                                if (queryDocumentSnapshots.getDocuments().get(position).getId().equals(aircraft.getId())) {
+                                    selectedAcWithWorkersFS.document(aircraft.getId()).update("userArrayList", SelectedToAcFragment.userList);
+                                    selectedAcWithWorkersFS.document(aircraft.getId()).update("timeDate", timeDate);
+                                    Aircraft aircraft1 = new Aircraft(aircraft.getName(), aircraft.getModel());
 
-                                    if (queryDocumentSnapshots.getDocuments().get(position).getId().equals(aircraft.getId())) {
-                                        selectedAcWithWorkersFS.document(aircraft.getId()).update("userArrayList", SelectedToAcFragment.userList);
-                                        selectedAcWithWorkersFS.document(aircraft.getId()).update("timeDate", timeDate);
-                                        Aircraft aircraft1 = new Aircraft(aircraft.getName(), aircraft.getModel());
-
-                                        Snackbar snackbar = Snackbar.make(getView(),
-                                                "העובדים התווספו בהצלחה למטוס:\n"
-                                                        + aircraft1.getName() + " " + aircraft1.getModel() + "\t \t \t \t \t \t \t"
-                                                , Snackbar.LENGTH_LONG);
-                                        snackbar.setTextColor(getResources().getColor(R.color.greenSignIn));
-                                        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-                                        snackbar.show();
-                                        Intent intent = new Intent(getActivity() , ManagerMainActivity.class);
-                                        startActivity(intent);
-
-                                    }
+                                    Snackbar snackbar = Snackbar.make(getView(),
+                                            "העובדים התווספו בהצלחה למטוס:\n"
+                                                    + aircraft1.getName() + " " + aircraft1.getModel() + "\t \t \t \t \t \t \t"
+                                            , Snackbar.LENGTH_LONG);
+                                    snackbar.setTextColor(getResources().getColor(R.color.greenSignIn));
+                                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                                    snackbar.show();
+                                    Intent intent = new Intent(getActivity() , ManagerMainActivity.class);
+                                    startActivity(intent);
                                 }
                             }
                         });

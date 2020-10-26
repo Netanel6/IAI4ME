@@ -9,11 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,22 +21,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.fragments.lists.aircrafts.AircraftsListsFragment;
 import com.netanel.iaiforme.pojo.User;
-
 import java.util.ArrayList;
 
 public class SelectedToAcFragment extends Fragment {
-    RecyclerView recyclerView;
-    private FirebaseDatabase realTimeDb = FirebaseDatabase.getInstance();
-    private SelectedToAcAdapter adapter = new SelectedToAcAdapter();
+    private RecyclerView recyclerView;
+    private final FirebaseDatabase realTimeDb = FirebaseDatabase.getInstance();
+    private final SelectedToAcAdapter adapter = new SelectedToAcAdapter();
     public static ArrayList<User> userList;
-    DatabaseReference selectedToAcRef;
 
     public SelectedToAcFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -53,7 +44,7 @@ public class SelectedToAcFragment extends Fragment {
 
         workersToAcListRef();
         setupRecyclerView(view);
-        MoveToAcListWithWorkers(view);
+        moveToAcListWithWorkers(view);
     }
 
     //SetUp recycler view
@@ -65,7 +56,7 @@ public class SelectedToAcFragment extends Fragment {
 
     //Workers to aircraft list ref
     public void workersToAcListRef() {
-        selectedToAcRef = realTimeDb.getReference().child("SelectedToAcList");
+        DatabaseReference selectedToAcRef = realTimeDb.getReference().child("SelectedToAcList");
         selectedToAcRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -77,31 +68,25 @@ public class SelectedToAcFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
             }
         });
     }
 
     //Move to aircraft list with workers
-    public void MoveToAcListWithWorkers(View view) {
+    public void moveToAcListWithWorkers(View view) {
         FloatingActionButton moveToSelectedBtn = view.findViewById(R.id.to_ac_with_workers_btn);
 
-        moveToSelectedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        moveToSelectedBtn.setOnClickListener(v -> {
 
-                Fragment fragment = new AircraftsListsFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
+            Fragment fragment = new AircraftsListsFragment();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
 
 
-            }
         });
     }
 }

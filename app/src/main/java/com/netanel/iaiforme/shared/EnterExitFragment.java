@@ -1,17 +1,13 @@
 package com.netanel.iaiforme.shared;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.netanel.iaiforme.R;
 
 public class EnterExitFragment extends Fragment {
-
 
     public EnterExitFragment() {
     }
@@ -19,7 +15,6 @@ public class EnterExitFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.netanel.iaiforme.pojo;
 
-import java.util.ArrayList;
-
-
 public class User {
 
     private String uid;

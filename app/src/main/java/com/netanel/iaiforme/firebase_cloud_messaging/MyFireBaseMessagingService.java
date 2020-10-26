@@ -8,12 +8,6 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFireBaseMessagingService extends FirebaseMessagingService {
 
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -21,8 +15,6 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
         String body = remoteMessage.getNotification().getBody();
 
         MyNotificationManager.getInstance(getApplicationContext()).displayNotification(title, body);
-
-
         Log.d("onMessageRecieved", "onMessageReceived: " + remoteMessage);
     }
 

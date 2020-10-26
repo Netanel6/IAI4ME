@@ -1,24 +1,19 @@
 package com.netanel.iaiforme.shared.profile;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.Noti;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.ManagerNotiViewHolder> {
-
     private List<Noti> notiArrayList = new ArrayList<>();
 
     public void setNotiArrayList(List<Noti> notiArrayList) {
@@ -36,26 +31,15 @@ public class ManagerNotiAdapter extends RecyclerView.Adapter<ManagerNotiAdapter.
     @Override
     public void onBindViewHolder(@NonNull ManagerNotiViewHolder holder, int position) {
         Noti noti = notiArrayList.get(position);
-
-
-
         holder.tvNotiDate.setText("נשלח בתאריך: " + noti.getDate());
         holder.tvNotiTitle.setText(noti.getTitle());
         holder.tvNotiTitle.setTextColor(Color.BLUE);
         holder.tvNotiDescription.setText(noti.getDescription());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle(noti.getTitle()).
-                        setMessage(noti.getDescription())
-                        .setPositiveButton("אישור", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).show();
-            }
-        });
+        holder.itemView.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
+                .setTitle(noti.getTitle()).
+                setMessage(noti.getDescription())
+                .setPositiveButton("אישור", (dialog, which) -> {
+                }).show());
     }
 
     @Override

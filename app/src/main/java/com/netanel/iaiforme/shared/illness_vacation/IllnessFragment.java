@@ -10,39 +10,34 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.DateFromTo;
 import com.netanel.iaiforme.pojo.User;
-
 import java.util.Calendar;
 
 public class IllnessFragment extends Fragment {
     TextView fromDate, toDate, titleSelectDate;
     Button sendIllnessDays;
-    DatePickerDialog datePickerDialog;
-    String dateString;
+    private DatePickerDialog datePickerDialog;
+    private String dateString;
     Calendar calendar;
-    String toDateString, fromDateString;
-    DateFromTo dateFromTo;
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    CollectionReference userRefIllness = FirebaseFirestore.getInstance().collection("Users");
+    private String toDateString, fromDateString;
+    private DateFromTo dateFromTo;
+    private final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private final CollectionReference userRefIllness = FirebaseFirestore.getInstance().collection("Users");
     String userName = "";
     String userLast = "";
-    DocumentReference userRefDocument = userRefIllness.document(uid);
-    CollectionReference requestIllnessRef = FirebaseFirestore.getInstance().collection("Illness");
+    private final DocumentReference userRefDocument = userRefIllness.document(uid);
+    private final CollectionReference requestIllnessRef = FirebaseFirestore.getInstance().collection("Illness");
 
     public IllnessFragment() {
     }
@@ -86,83 +81,63 @@ public class IllnessFragment extends Fragment {
     }
 
     public void pickDates() {
-
-
-        fromDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-                datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        "OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    DatePicker datePicker = datePickerDialog
-                                            .getDatePicker();
-                                    datePickerListener.onDateSet(datePicker,
-                                            datePicker.getYear(),
-                                            datePicker.getMonth(),
-                                            datePicker.getDayOfMonth());
-                                    fromDate.setText("החופש יתחיל בתאריך: " + dateString);
-                                    dateFromTo.setDateFrom(dateString);
-                                    fromDateString = dateFromTo.getDateFrom();
-
-                                }
+        fromDate.setOnClickListener(v -> {
+            showDatePickerDialog();
+            datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    "OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            if (which == DialogInterface.BUTTON_POSITIVE) {
+                                DatePicker datePicker = datePickerDialog
+                                        .getDatePicker();
+                                datePickerListener.onDateSet(datePicker,
+                                        datePicker.getYear(),
+                                        datePicker.getMonth(),
+                                        datePicker.getDayOfMonth());
+                                fromDate.setText("החופש יתחיל בתאריך: " + dateString);
+                                dateFromTo.setDateFrom(dateString);
+                                fromDateString = dateFromTo.getDateFrom();
                             }
-                        });
-            }
-        });
-        toDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-
-                datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        "OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    DatePicker datePicker = datePickerDialog
-                                            .getDatePicker();
-                                    datePickerListener.onDateSet(datePicker,
-                                            datePicker.getYear(),
-                                            datePicker.getMonth(),
-                                            datePicker.getDayOfMonth());
-                                    toDate.setText("החופש יסתיים בתאריך: " + dateString);
-
-                                    dateFromTo.setDateTo(dateString);
-                                    toDateString = dateFromTo.getDateTo();
-                                }
-                            }
-                        });
-            }
-        });
-
-
-        sendIllnessDays.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (toDateString == null | fromDateString == null) {
-                    Toast.makeText(getContext(), "לא הוכנס אחד מהתאריכים!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Snackbar snackbar = Snackbar.make(v,
-                            "בקשת מחלה נשלחה למנהל", Snackbar.LENGTH_LONG);
-                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-                    userRefIllness.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            User user = documentSnapshot.toObject(User.class);
-                            userName = user.getName();
-                            userLast = user.getLast();
-
-                            dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
-                            userRefDocument.collection("Illness").document(uid).set(dateFromTo);
-                            dateFromTo = new DateFromTo(uid, userName, userLast, fromDateString, toDateString);
-                            requestIllnessRef.document(uid).set(dateFromTo);
                         }
                     });
-                    snackbar.show();
-                }
+        });
+        toDate.setOnClickListener(v -> {
+            showDatePickerDialog();
+            datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    "OK", (dialog, which) -> {
+                        if (which == DialogInterface.BUTTON_POSITIVE) {
+                            DatePicker datePicker = datePickerDialog
+                                    .getDatePicker();
+                            datePickerListener.onDateSet(datePicker,
+                                    datePicker.getYear(),
+                                    datePicker.getMonth(),
+                                    datePicker.getDayOfMonth());
+                            toDate.setText("החופש יסתיים בתאריך: " + dateString);
+                            dateFromTo.setDateTo(dateString);
+                            toDateString = dateFromTo.getDateTo();
+                        }
+                    });
+        });
+
+
+        sendIllnessDays.setOnClickListener(v -> {
+            if (toDateString == null | fromDateString == null) {
+                Toast.makeText(getContext(), "לא הוכנס אחד מהתאריכים!", Toast.LENGTH_SHORT).show();
+            } else {
+                Snackbar snackbar = Snackbar.make(v,
+                        "בקשת מחלה נשלחה למנהל", Snackbar.LENGTH_LONG);
+                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                userRefIllness.document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                    User user = documentSnapshot.toObject(User.class);
+                    userName = user.getName();
+                    userLast = user.getLast();
+
+                    dateFromTo = new DateFromTo(uid, fromDateString, toDateString);
+                    userRefDocument.collection("Illness").document(uid).set(dateFromTo);
+                    dateFromTo = new DateFromTo(uid, userName, userLast, fromDateString, toDateString);
+                    requestIllnessRef.document(uid).set(dateFromTo);
+                });
+                snackbar.show();
             }
         });
     }
@@ -173,7 +148,5 @@ public class IllnessFragment extends Fragment {
             titleSelectDate.setText("לחץ על אחד מהתאריכים שנבחרו כדי לבחור תאריך חדש");
             dateString = dayOfMonth + "." + (month + 1) + "." + year;
         }
-
     };
-
 }

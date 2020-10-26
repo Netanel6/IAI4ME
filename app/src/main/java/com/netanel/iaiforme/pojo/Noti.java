@@ -1,7 +1,5 @@
 package com.netanel.iaiforme.pojo;
 
-import java.util.Date;
-
 public class Noti {
 
     private String title;
@@ -9,12 +7,6 @@ public class Noti {
     private String date;
 
     public Noti(){
-    }
-
-    public Noti(String title, String description, String date) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
     }
 
     public String getTitle() {

@@ -1,19 +1,13 @@
 package com.netanel.iaiforme.manager.fragments.actions.ac_managment;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.fragments.actions.ac_managment.fragments.AddAcFragment;
 import com.netanel.iaiforme.manager.fragments.actions.ac_managment.fragments.UpdateDeleteAcFragment;
 
-public class AcManagmentActivity extends AppCompatActivity {
-
+public class AcManagementActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,40 +15,32 @@ public class AcManagmentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_ac_managment);
         setUpBottomNavigationView();
-
     }
 
     //Bottom navigationView
     private void setUpBottomNavigationView() {
         BottomNavigationView.OnNavigationItemSelectedListener navListener =
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        Fragment selectedFragment = null;
-
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_add_ac:
-                                selectedFragment = new AddAcFragment();
-                                break;
-                            case R.id.nav_delete_ac:
-                                selectedFragment = new UpdateDeleteAcFragment();
-                                break;
-                        }
-
-                        if (selectedFragment != null) {
-                            getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.fragment_container, selectedFragment)
-                                    .commit();
-                        }
-                        return true;
+                menuItem -> {
+                    Fragment selectedFragment = null;
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_add_ac:
+                            selectedFragment = new AddAcFragment();
+                            break;
+                        case R.id.nav_delete_ac:
+                            selectedFragment = new UpdateDeleteAcFragment();
+                            break;
                     }
+
+                    if (selectedFragment != null) {
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, selectedFragment)
+                                .commit();
+                    }
+                    return true;
                 };
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_ac_managment);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.setSelectedItemId(R.id.nav_add_ac);
-
     }
-
-
 }

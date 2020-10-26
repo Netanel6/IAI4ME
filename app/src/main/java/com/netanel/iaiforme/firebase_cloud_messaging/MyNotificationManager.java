@@ -1,5 +1,6 @@
 package com.netanel.iaiforme.firebase_cloud_messaging;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,9 +14,9 @@ import com.netanel.iaiforme.shared.home.HomeFragment;
 
 public class MyNotificationManager {
 
-    private Context context;
+    private final Context context;
+    @SuppressLint("StaticFieldLeak")
     private static MyNotificationManager instance;
-    private final int NOTI_RC = 1;
 
     public MyNotificationManager(Context context) {
         this.context = context;
@@ -24,11 +25,9 @@ public class MyNotificationManager {
     public static synchronized MyNotificationManager getInstance(Context context) {
         if (instance == null) {
             instance = new MyNotificationManager(context);
-
         }
         return instance;
     }
-
 
     public void displayNotification(String title, String body) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, Constants.CHANNEL_ID)
@@ -37,6 +36,7 @@ public class MyNotificationManager {
                 .setContentText(body);
 
         Intent intent = new Intent(context, HomeFragment.class);
+        int NOTI_RC = 1;
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTI_RC, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pendingIntent);

@@ -7,7 +7,6 @@ public class DateFromTo {
     String dateFrom;
     String dateTo;
 
-
     public DateFromTo() {
     }
 

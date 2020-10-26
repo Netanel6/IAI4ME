@@ -9,9 +9,8 @@ import com.netanel.iaiforme.pojo.User;
 import java.util.List;
 
 public class AllUserListViewModel extends ViewModel implements FireStoreAllUsersRepository.OnFireStoreTaskComplete {
-    private FireStoreAllUsersRepository fireStoreRepository = new FireStoreAllUsersRepository(this);
 
-    private MutableLiveData<List<User>> userListViewModel = new MutableLiveData<>();
+    private final MutableLiveData<List<User>> userListViewModel = new MutableLiveData<>();
 
 
     public LiveData<List<User>> getUserListViewModel() {
@@ -19,6 +18,7 @@ public class AllUserListViewModel extends ViewModel implements FireStoreAllUsers
     }
 
     public AllUserListViewModel() {
+        FireStoreAllUsersRepository fireStoreRepository = new FireStoreAllUsersRepository(this);
         fireStoreRepository.getUsersData();
     }
 

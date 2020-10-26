@@ -4,34 +4,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.pojo.Aircraft;
-import com.netanel.iaiforme.pojo.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAdapter.AircraftViewHolder> {
 
     private static List<Aircraft> aircraftList;
     private static OnItemClick onitemClick;
-    private static ArrayList<User> userList = new ArrayList<>();
-    private static int AIRCRAFT_SINGLE_CELL = 0;
+    private static final int AIRCRAFT_SINGLE_CELL = 0;
 
     public AircraftsListsAdapter() {
     }
 
     public void setAircraftList(List<Aircraft> aircraftList) {
         AircraftsListsAdapter.aircraftList = aircraftList;
-    }
-
-    public List<Aircraft> getAircraftList() {
-        return aircraftList;
     }
 
     @NonNull
@@ -65,13 +56,14 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
             return 0;
         } else {
             return aircraftList.size();
-
         }
 
     }
 
     public static class AircraftViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvModel, tvDate;
+        private final TextView tvName;
+        private final TextView tvModel;
+        private final TextView tvDate;
         int counter = 1;
 
         public AircraftViewHolder(@NonNull View itemView) {
@@ -81,27 +73,24 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
             tvModel = itemView.findViewById(R.id.tv_ac_model);
             tvDate = itemView.findViewById(R.id.tv_date_worker_list);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (counter == 1) {
-                        itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.greenSignIn));
-                        if (onitemClick != null && position != RecyclerView.NO_POSITION) {
-                            onitemClick.addAircraftWithUsers(aircraftList.get(position), counter);
-                            onitemClick.getAdapterPosition(position);
-                        }
-                    } else if (counter == 2) {
-                        itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.fui_transparent));
-                        if (onitemClick != null && position != RecyclerView.NO_POSITION) {
-                            onitemClick.addAircraftWithUsers(aircraftList.get(position), counter);
-                            onitemClick.getAdapterPosition(position);
-                        }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (counter == 1) {
+                    itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.greenSignIn));
+                    if (onitemClick != null && position != RecyclerView.NO_POSITION) {
+                        onitemClick.addAircraftWithUsers(aircraftList.get(position), counter);
+                        onitemClick.getAdapterPosition(position);
                     }
-                    counter++;
-                    if (counter == 3){
-                        counter = 1;
+                } else if (counter == 2) {
+                    itemView.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.fui_transparent));
+                    if (onitemClick != null && position != RecyclerView.NO_POSITION) {
+                        onitemClick.addAircraftWithUsers(aircraftList.get(position), counter);
+                        onitemClick.getAdapterPosition(position);
                     }
+                }
+                counter++;
+                if (counter == 3){
+                    counter = 1;
                 }
             });
         }
@@ -109,12 +98,10 @@ public class AircraftsListsAdapter extends RecyclerView.Adapter<AircraftsListsAd
 
     public interface OnItemClick {
         void addAircraftWithUsers(Aircraft aircraft, int counter);
-
         void getAdapterPosition(int position);
     }
 
     public void setAircraftWithUsers(OnItemClick onitemClick) {
         AircraftsListsAdapter.onitemClick = onitemClick;
     }
-
 }

@@ -1,14 +1,8 @@
 package com.netanel.iaiforme.pojo;
 
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-
-import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 
 public class Aircraft {
-
     private String name;
     private String model;
     private String date;
@@ -20,28 +14,9 @@ public class Aircraft {
     public Aircraft() {
     }
 
-
-    //AircraftList fragment
-    public Aircraft(String name, String model, String date, String timeDate, String id, ArrayList<User> userArrayList) {
-        this.name = name;
-        this.model = model;
-        this.date = date;
-        this.timeDate = timeDate;
-        this.id = id;
-        this.userArrayList = userArrayList;
-    }
-
     public Aircraft(String name, String model) {
         this.name = name;
         this.model = model;
-    }
-
-    //Home fragment
-    public Aircraft(String name, String model, String date, ArrayList<User> userArrayList) {
-        this.name = name;
-        this.model = model;
-        this.date = date;
-        this.userArrayList = userArrayList;
     }
 
     //Add ac fragment and aircraft list fragment

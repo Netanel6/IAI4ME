@@ -5,19 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,37 +21,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.netanel.iaiforme.R;
 import com.netanel.iaiforme.manager.fragments.lists.users.users_after_checked.SelectedToAcFragment;
 import com.netanel.iaiforme.pojo.User;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class AllWorkerListsFragment extends Fragment {
 
-    private AllUserListsAdapter adapter = new AllUserListsAdapter();
+    private final AllUserListsAdapter adapter = new AllUserListsAdapter();
     FirebaseDatabase realTimeDb = FirebaseDatabase.getInstance();
     DatabaseReference selectedToAcRef;
     static List<User> selectedToAcList;
 
-
     public AllWorkerListsFragment() {
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-//        setupViewModel();
-
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         selectedToAcList = new ArrayList<>();
-
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,11 +52,9 @@ public class AllWorkerListsFragment extends Fragment {
         setUpRecyclerView(view);
         addOrRemoveWorker();
         moveToSelectedWorkers(view);
-
-
     }
 
-
+    //Setup recyclerView
     public void setUpRecyclerView(View view) {
         TextView workerCount = view.findViewById(R.id.tv_worker_count);
         RecyclerView recyclerView = view.findViewById(R.id.rv_worker_list);
@@ -85,7 +65,6 @@ public class AllWorkerListsFragment extends Fragment {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-
     }
 
     public void addOrRemoveWorker() {
@@ -98,7 +77,6 @@ public class AllWorkerListsFragment extends Fragment {
             @Override
             public void removeNewUser(User user) {
                 selectedToAcList.remove(user);
-
             }
         });
     }
@@ -106,30 +84,25 @@ public class AllWorkerListsFragment extends Fragment {
     public void moveToSelectedWorkers(View view) {
         FloatingActionButton moveToSelectedBtn = view.findViewById(R.id.to_ac_with_workers_btn);
 
-        moveToSelectedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        moveToSelectedBtn.setOnClickListener(v -> {
 
-                Fragment fragment = new SelectedToAcFragment();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
+            Fragment fragment = new SelectedToAcFragment();
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
 
-                selectedToAcRef = realTimeDb.getReference().child("SelectedToAcList");
-                selectedToAcRef.setValue(selectedToAcList);
+            selectedToAcRef = realTimeDb.getReference().child("SelectedToAcList");
+            selectedToAcRef.setValue(selectedToAcList);
 
-                Snackbar snackbar = Snackbar.make(v,
-                        "העובדים שבחרת נוספו לרשימה", Snackbar.LENGTH_LONG);
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+            Snackbar snackbar = Snackbar.make(v,
+                    "העובדים שבחרת נוספו לרשימה", Snackbar.LENGTH_LONG);
+            snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
 
-                snackbar.show();
+            snackbar.show();
 
-            }
         });
     }
-
-
 }
 
 
